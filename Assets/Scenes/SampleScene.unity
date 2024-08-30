@@ -170,6 +170,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5771011070231173486, guid: 761cdc9e4e883334cbdcea062d0befa7, type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 6593649103392622019, guid: 761cdc9e4e883334cbdcea062d0befa7, type: 3}
       propertyPath: m_Name
       value: Player
