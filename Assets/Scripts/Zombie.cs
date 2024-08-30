@@ -44,8 +44,12 @@ public class Zombie : MonoBehaviour
         navMeshAgent.destination = targetPoint;
         navMeshAgent.isStopped = isStunned;
 
+        var wasWalking = animator.GetBool("Walking");
         var isWalking = (targetPoint - transform.position).magnitude > 0.1f;
         animator.SetBool("Walking", isWalking);
+        if (wasWalking != isWalking) {
+            Debug.Log($"Walking: {isWalking}");
+        }
 
         if (isStunned)
         {
@@ -55,6 +59,7 @@ public class Zombie : MonoBehaviour
                 isStunned = false;
             }
         }
+        animator.SetBool("Stunned", isStunned);
         transform.position += currentPushForce;
         currentPushForce = Vector3.MoveTowards(currentPushForce, Vector3.zero, pushForceDecay);
     }
@@ -74,12 +79,14 @@ public class Zombie : MonoBehaviour
             isStunned = true;
             stunTimer = stunTime;
             Debug.Log("Zombie is stunned");
+            animator.SetTrigger("StunTrigger");
         }
         else
         {
             health -= damage;
             Debug.Log($"Damage taken: {damage}");
             currentPushForce = pushDirection.normalized * pushForce;
+            animator.SetTrigger("Hit");
         }
 
         if (health <= 0)
