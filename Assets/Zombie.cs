@@ -7,7 +7,9 @@ public class Zombie : MonoBehaviour
 {
     public Transform target;
     private NavMeshAgent navMeshAgent;
-    private Vector3 pushForce = Vector3.zero;
+
+    private Vector3 currentPushForce = Vector3.zero;   /// Force used to simulate Zombie being pushed.
+    public float pushForceDecay = 0.1f;              /// How quickly pushForce goes down to zero.
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +21,22 @@ public class Zombie : MonoBehaviour
     void FixedUpdate()
     {
         navMeshAgent.destination = target.position;
+
+        /// Temporary code for pushing Zombies randomly.
         var result = Random.Range(0, 100);
         if (result < 1) {
-            pushForce = new Vector3(1.0f, 0.0f, 0.0f);
+            WasHit(new Vector3(1.0f, 0.0f, 0.0f));
         }
-        transform.position += pushForce;
-        pushForce = Vector3.MoveTowards(pushForce, Vector3.zero, 0.1f);
+
+        transform.position += currentPushForce;
+        currentPushForce = Vector3.MoveTowards(currentPushForce, Vector3.zero, pushForceDecay);
+
+    }
+
+    /// Call this function when Zombie was hit by the player.
+    /// It will push the Zombie backwards.
+    void WasHit(Vector3 pushDirection, float pushForce = 1.0f) {
+        Debug.Log($"tempCounter is: {GameState.Instance.tempCounter}");
+        currentPushForce = pushDirection.normalized * pushForce;
     }
 }
