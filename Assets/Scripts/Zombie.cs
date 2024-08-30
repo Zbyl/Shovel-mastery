@@ -25,14 +25,16 @@ public class Zombie : MonoBehaviour
 
     void Start()
     {
-        animator = animatedMesh.GetComponent<Animator>(); 
+        animator = animatedMesh.GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         Transform player_target = GameObject.Find("Player").transform;
         target = player_target;
         if (Random.Range(0.0f, 1.0f) <= cowardProbability)
         {
             minimalDistanceToTarget = Random.Range(minimalDistanceToTargetDefault, minimalDistanceToTargetForCowards);
-        } else {
+        }
+        else
+        {
             minimalDistanceToTarget = minimalDistanceToTargetDefault;
         }
     }
@@ -47,7 +49,8 @@ public class Zombie : MonoBehaviour
         var wasWalking = animator.GetBool("Walking");
         var isWalking = (targetPoint - transform.position).magnitude > 0.1f;
         animator.SetBool("Walking", isWalking);
-        if (wasWalking != isWalking) {
+        if (wasWalking != isWalking)
+        {
             Debug.Log($"Walking: {isWalking}");
         }
 
@@ -78,13 +81,13 @@ public class Zombie : MonoBehaviour
         {
             isStunned = true;
             stunTimer = stunTime;
-            Debug.Log("Zombie is stunned");
+            Debug.Log($"Zombie {this.GetHashCode()} is stunned");
             animator.SetTrigger("StunTrigger");
         }
         else
         {
             health -= damage;
-            Debug.Log($"Damage taken: {damage}");
+            Debug.Log($"Damage taken: {damage} {this.GetHashCode()}");
             currentPushForce = pushDirection.normalized * pushForce;
             animator.SetTrigger("Hit");
         }
