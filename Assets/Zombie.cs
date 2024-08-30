@@ -23,8 +23,9 @@ public class Zombie : MonoBehaviour
         navMeshAgent.destination = target.position;
 
         /// Temporary code for pushing Zombies randomly.
-        var result = Random.Range(0, 100);
-        if (result < 1) {
+        var result = Random.Range(10, 100);
+        if (result < 1)
+        {
             WasHit(new Vector3(1.0f, 0.0f, 0.0f));
         }
 
@@ -35,7 +36,8 @@ public class Zombie : MonoBehaviour
 
     /// Call this function when Zombie was hit by the player.
     /// It will push the Zombie backwards.
-    void WasHit(Vector3 pushDirection, float pushForce = 1.0f) {
+    void WasHit(Vector3 pushDirection, float pushForce = 1.0f)
+    {
         Debug.Log($"tempCounter is: {GameState.Instance.tempCounter}");
         currentPushForce = pushDirection.normalized * pushForce;
     }
