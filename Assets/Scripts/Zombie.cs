@@ -20,8 +20,12 @@ public class Zombie : MonoBehaviour
     private float stunTimer = 0.0f;
     private bool isStunned = false;
 
+    public Transform animatedMesh;  /// Must be set to the mesh with Animator component.
+    private Animator animator;
+
     void Start()
     {
+        animator = animatedMesh.GetComponent<Animator>(); 
         navMeshAgent = GetComponent<NavMeshAgent>();
         Transform player_target = GameObject.Find("Player").transform;
         target = player_target;
@@ -39,6 +43,9 @@ public class Zombie : MonoBehaviour
         var targetPoint = target.position - vecToDestination.normalized * minimalDistanceToTarget;
         navMeshAgent.destination = targetPoint;
         navMeshAgent.isStopped = isStunned;
+
+        var isWalking = (targetPoint - transform.position).magnitude > 0.1f;
+        animator.SetBool("Walking", isWalking);
 
         if (isStunned)
         {
