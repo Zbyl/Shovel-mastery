@@ -12,6 +12,7 @@ public class FPSController : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController characterController;
     private Camera playerCamera;
+    private Camera weaponCamera;
     public Shovel shovel;
 
 
@@ -21,6 +22,7 @@ public class FPSController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         playerCamera = Camera.main;
+        weaponCamera = GameObject.Find("WeaponCamera").GetComponent<Camera>();
 
         // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
@@ -33,6 +35,7 @@ public class FPSController : MonoBehaviour
         rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
         rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        weaponCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
 
         // Handle movement
