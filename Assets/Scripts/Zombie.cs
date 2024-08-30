@@ -4,10 +4,15 @@ using UnityEngine.AI;
 public class Zombie : MonoBehaviour
 {
     private Transform target;
+    float minimalDistanceToTarget = 2.0f;      /// We won't come closer to target than this.
+    public float minimalDistanceToTargetDefault = 2.0f;      /// We won't come closer to target than this.
+    public float minimalDistanceToTargetForCowards = 3.0f;      /// Cowardly Zombies won't come closer to target than this.
+    public float cowardProbability = 0.5f;      /// How likely it is to have a cowardly Zombie. It will have effecting minimalDistanceToTarget a bit random.
     private NavMeshAgent navMeshAgent;
 
     private Vector3 currentPushForce = Vector3.zero;   /// Force used to simulate Zombie being pushed.
-    public float pushForceDecay = 0.01f;              /// How quickly pushForce goes down to zero. <summary>
+    public float pushForceDecay = 0.01f;              /// How quickly pushForce goes down to zero.
+    public float pushForce = 0.7f;                    /// Strength of a push.
 
     public float health = 500.0f;
 
@@ -20,11 +25,19 @@ public class Zombie : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         Transform player_target = GameObject.Find("Player").transform;
         target = player_target;
+        if (Random.Range(0.0f, 1.0f) <= cowardProbability)
+        {
+            minimalDistanceToTarget = Random.Range(minimalDistanceToTargetDefault, minimalDistanceToTargetForCowards);
+        } else {
+            minimalDistanceToTarget = minimalDistanceToTargetDefault;
+        }
     }
 
     void FixedUpdate()
     {
-        navMeshAgent.destination = target.position;
+        var vecToDestination = target.position - transform.position;
+        var targetPoint = target.position - vecToDestination.normalized * minimalDistanceToTarget;
+        navMeshAgent.destination = targetPoint;
         navMeshAgent.isStopped = isStunned;
 
         if (isStunned)
@@ -59,7 +72,7 @@ public class Zombie : MonoBehaviour
         {
             health -= damage;
             Debug.Log($"Damage taken: {damage}");
-            currentPushForce = pushDirection.normalized * 0.7f;
+            currentPushForce = pushDirection.normalized * pushForce;
         }
 
         if (health <= 0)
