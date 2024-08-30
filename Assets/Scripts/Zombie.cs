@@ -9,7 +9,9 @@ public class Zombie : MonoBehaviour
     private NavMeshAgent navMeshAgent;
 
     private Vector3 currentPushForce = Vector3.zero;   /// Force used to simulate Zombie being pushed.
-    public float pushForceDecay = 0.1f;              /// How quickly pushForce goes down to zero.
+    public float pushForceDecay = 0.1f;              /// How quickly pushForce goes down to zero. <summary>
+
+    public float health = 50.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -40,5 +42,22 @@ public class Zombie : MonoBehaviour
     {
         Debug.Log($"tempCounter is: {GameState.Instance.tempCounter}");
         currentPushForce = pushDirection.normalized * pushForce;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        Debug.Log($"Damage taken: {damage}");
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        // Add death effects, animations, etc.
+        Destroy(gameObject);
     }
 }

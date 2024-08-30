@@ -12,6 +12,9 @@ public class FPSController : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController characterController;
     private Camera playerCamera;
+    public Shovel shovel;
+
+
     private float rotationX = 0;
 
     void Start()
