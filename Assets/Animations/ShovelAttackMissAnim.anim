@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShovelAttackAnim
+  m_Name: ShovelAttackMissAnim
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -29,15 +29,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.2
         value: {x: -57.509, y: -62.456, z: 18.159}
-        inSlope: {x: 0, y: -322.62573, z: 0}
-        outSlope: {x: 0, y: -322.62573, z: 0}
+        inSlope: {x: 0, y: -516.98285, z: 0}
+        outSlope: {x: 0, y: -516.98285, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.35
-        value: {x: 6.123, y: -127.37, z: -97.633}
+        value: {x: -21.595, y: -195.395, z: -99.844}
         inSlope: {x: 302.3633, y: 0, z: 0}
         outSlope: {x: 302.3633, y: 0, z: 0}
         tangentMode: 0
@@ -319,7 +319,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.35
-        value: 6.123
+        value: -21.595
         inSlope: 302.3633
         outSlope: 302.3633
         tangentMode: 136
@@ -359,15 +359,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.2
         value: -62.456
-        inSlope: -322.62573
-        outSlope: -322.62573
+        inSlope: -516.98285
+        outSlope: -516.98285
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.35
-        value: -127.37
+        value: -195.395
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -415,7 +415,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.35
-        value: -97.633
+        value: -99.844
         inSlope: 0
         outSlope: 0
         tangentMode: 136

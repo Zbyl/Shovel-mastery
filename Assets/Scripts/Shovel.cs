@@ -29,7 +29,7 @@ public class Shovel : MonoBehaviour
     {
         RaycastHit hit;
         Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * attackRange, Color.red, 3.0f);
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward * attackRange, out hit, attackRange * 20))
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward * attackRange, out hit, attackRange))
         {
             Zombie enemy = hit.transform.GetComponent<Zombie>();
             Debug.Log($"Hit: {hit.transform.name}");
@@ -39,8 +39,10 @@ public class Shovel : MonoBehaviour
             {
                 enemy.TakeHit(damage, pushDirection);
             }
-
-            //effects or animations here
+        }
+        else
+        {
+            animator.SetTrigger("AttackMiss");
         }
     }
 }
