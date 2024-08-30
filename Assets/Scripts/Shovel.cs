@@ -4,11 +4,11 @@ using UnityEngine;
 public class Shovel : MonoBehaviour
 {
     public float damage = 10.0f;      // Damage dealt by the pickaxe
-    public float attackRange = 3.5f;  // Range of the pickaxe attack
-    public float attackRate = 1.0f;   // Time between attacks
+    public float attackRange = 7.0f;  // Range of the pickaxe attack
+    public float attackRate = 1.0f;   // per 1 second
     public Camera playerCamera;       // Reference to the player's camera
 
-    private float nextAttackTime = 0f;
+    private float nextAttackTime = 0.1f;
 
     void Update()
     {
@@ -22,17 +22,18 @@ public class Shovel : MonoBehaviour
     void Attack()
     {
         RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, attackRange))
+        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * attackRange, Color.red, 3.0f);
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward * attackRange, out hit, attackRange * 20))
         {
             Zombie enemy = hit.transform.GetComponent<Zombie>();
             Debug.Log($"Hit: {hit.transform.name}");
             Vector3 pushDirection = hit.point - playerCamera.transform.position;
             if (enemy != null)
             {
-                enemy.TakeDamage(damage, pushDirection);
+                enemy.TakeHit(damage, pushDirection);
             }
 
-            // Optionally add some attack effects or animations here
+            //effects or animations here
         }
     }
 }

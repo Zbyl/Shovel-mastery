@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,35 +7,60 @@ public class Zombie : MonoBehaviour
     private NavMeshAgent navMeshAgent;
 
     private Vector3 currentPushForce = Vector3.zero;   /// Force used to simulate Zombie being pushed.
-    public float pushForceDecay = 0.1f;              /// How quickly pushForce goes down to zero. <summary>
+    public float pushForceDecay = 0.01f;              /// How quickly pushForce goes down to zero. <summary>
 
     public float health = 500.0f;
 
-    // Start is called before the first frame update
+    public float stunTime = 3.0f;
+    private float stunTimer = 0.0f;
+    private bool isStunned = false;
+
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        target = GameObject.Find("Player").transform;
+        Transform player_target = GameObject.Find("Player").transform;
+        target = player_target;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         navMeshAgent.destination = target.position;
+        navMeshAgent.isStopped = isStunned;
+
+        if (isStunned)
+        {
+            stunTimer -= Time.deltaTime;
+            if (stunTimer <= 0)
+            {
+                isStunned = false;
+            }
+        }
         transform.position += currentPushForce;
         currentPushForce = Vector3.MoveTowards(currentPushForce, Vector3.zero, pushForceDecay);
     }
 
-    public void TakeDamage(float damage, Vector3 pushDirection)
+    void OnCollisionEnter(Collision collision)
     {
-        health -= damage;
-        Debug.Log($"Damage taken: {damage}");
+        if (collision.gameObject.CompareTag("Zombie"))
+        {
+            collision.gameObject.GetComponent<Zombie>().TakeHit(0.0f, collision.contacts[0].point - transform.position);
+        }
+    }
 
-        float pushForce = 0.5f;
-
-        Debug.Log($"tempCounter is: {GameState.Instance.tempCounter}");
-        currentPushForce = pushDirection.normalized * pushForce;
-
+    public void TakeHit(float damage, Vector3 pushDirection)
+    {
+        if (!isStunned)
+        {
+            isStunned = true;
+            stunTimer = stunTime;
+            Debug.Log("Zombie is stunned");
+        }
+        else
+        {
+            health -= damage;
+            Debug.Log($"Damage taken: {damage}");
+            currentPushForce = pushDirection.normalized * 0.7f;
+        }
 
         if (health <= 0)
         {

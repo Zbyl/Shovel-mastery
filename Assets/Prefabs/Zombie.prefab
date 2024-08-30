@@ -52,8 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891e2e0fb50eb5541998f292b70f9b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   pushForceDecay: 0.1
+  health: 500
+  stunTime: 5
 --- !u!114 &2131287599076190742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,8 +115,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Height: 2
+  m_Radius: 0.65
+  m_Height: 2.66
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &655553781854087270
