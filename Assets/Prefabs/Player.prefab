@@ -455,8 +455,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   attackRange: 15
-  attackRate: 100
   playerCamera: {fileID: 7156870406025889818}
+  preAttackDelay: 0.3
+  attackCooldown: 0
 --- !u!95 &3478544363991269062
 Animator:
   serializedVersion: 5
