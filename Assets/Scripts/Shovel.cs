@@ -9,6 +9,12 @@ public class Shovel : MonoBehaviour
     public Camera playerCamera;       // Reference to the player's camera
 
     private float nextAttackTime = 0.1f;
+    private Animator animator;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -27,6 +33,7 @@ public class Shovel : MonoBehaviour
         {
             Zombie enemy = hit.transform.GetComponent<Zombie>();
             Debug.Log($"Hit: {hit.transform.name}");
+            animator.SetTrigger("Attack");
             Vector3 pushDirection = hit.point - playerCamera.transform.position;
             if (enemy != null)
             {
