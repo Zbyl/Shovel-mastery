@@ -14,7 +14,6 @@ public class Shovel : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && Time.time >= nextAttackTime)
         {
-            Debug.Log("Attacking with shovel");
             Attack();
             nextAttackTime = Time.time + 1f / attackRate;
         }
@@ -22,15 +21,15 @@ public class Shovel : MonoBehaviour
 
     void Attack()
     {
-        Debug.Log("Shovel attack!");
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, attackRange))
         {
             Zombie enemy = hit.transform.GetComponent<Zombie>();
             Debug.Log($"Hit: {hit.transform.name}");
+            Vector3 pushDirection = hit.point - playerCamera.transform.position;
             if (enemy != null)
             {
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(damage, pushDirection);
             }
 
             // Optionally add some attack effects or animations here
