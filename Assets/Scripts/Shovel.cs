@@ -21,6 +21,9 @@ public class Shovel : MonoBehaviour
     private AudioSource stoneSound;
     private AudioSource waveSound;
 
+    public GameObject swingParticlesPrefab; // Particles for swinging shovel, hitting not-stone and not metal.
+    public GameObject stoneParticlesPrefab; // Particles for swinging shovel, hitting stone and metal.
+
     void Start()
     {
         missSound = transform.Find("MissSound").GetComponent<AudioSource>();
@@ -71,6 +74,7 @@ public class Shovel : MonoBehaviour
                 Zombie enemy = hit.transform.GetComponent<Zombie>();
                 Debug.Log($"Hit: {hit.transform.name} {hit.transform.GetHashCode()}");
                 yield return new WaitForSeconds(preAttackDelay);
+                ShowSwingParticles(false);
                 enemy.TakeHit(damage, hit.point, hit.point - playerCamera.transform.position, false);
             }
             else if (hit.transform.CompareTag("Grave"))
@@ -79,17 +83,23 @@ public class Shovel : MonoBehaviour
                 Grave grave = hit.transform.GetComponent<Grave>();
                 Debug.Log($"Hit: {hit.transform.name} {hit.transform.GetHashCode()}");
                 yield return new WaitForSeconds(preAttackDelay);
+                ShowSwingParticles(false);
                 grave.Dig();
                 dirtSound.Play();
             }
             else if (hit.transform.CompareTag("Ground"))
             {
                 animator.SetTrigger("Attack");
+                yield return new WaitForSeconds(preAttackDelay);
+                ShowSwingParticles(false);
                 dirtSound.Play();
+
             }
             else if (hit.transform.CompareTag("Stone"))
             {
                 animator.SetTrigger("Attack");
+                yield return new WaitForSeconds(preAttackDelay);
+                ShowSwingParticles(true);
                 stoneSound.Play();
             }
             else
@@ -108,4 +118,9 @@ public class Shovel : MonoBehaviour
         canAttack = true; // Allow the player to attack again
     }
 
+    void ShowSwingParticles(bool stone)
+    {
+        var q = new Quaternion();
+        var hitParticles = Instantiate(stone ? stoneParticlesPrefab : swingParticlesPrefab, transform.parent.transform.position + transform.parent.transform.forward * 0.5f, q, transform.parent);
+    }
 }

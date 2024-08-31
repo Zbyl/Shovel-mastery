@@ -1293,8 +1293,10 @@ MonoBehaviour:
   attackRange: 4
   playerCamera: {fileID: 7156870406025889818}
   wavePrefab: {fileID: 1888327703288060626, guid: 14c7e5a28b8c045b290c8bf548d811ea, type: 3}
-  preAttackDelay: 0.3
+  preAttackDelay: 0.15
   attackCooldown: 0
+  swingParticlesPrefab: {fileID: 3261598487142912188, guid: a31133dbec8d4d5458d3359d866ca2d2, type: 3}
+  stoneParticlesPrefab: {fileID: 3261598487142912188, guid: cb2f6f6e474fce64c8c2df28de8ac45f, type: 3}
 --- !u!95 &3478544363991269062
 Animator:
   serializedVersion: 5
