@@ -1,3 +1,4 @@
+using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -27,6 +28,8 @@ public class Zombie : MonoBehaviour
     private AudioSource waveSound;
     private AudioSource[] painSounds;
 
+    private Rigidbody rb;
+
     public GameObject hitParticlesPrefab; // Prefab for hit particles.
 
     // Zombie AI
@@ -51,6 +54,8 @@ public class Zombie : MonoBehaviour
     }
     private ZombieState zombieState = ZombieState.Direct;
     private Vector3 zombieTarget = Vector3.zero;
+
+    public bool isFalling = false;
 
     void ZombieAI()
     {
@@ -128,6 +133,10 @@ public class Zombie : MonoBehaviour
     {
         animator = animatedMesh.GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        rb = GetComponent<Rigidbody>();
+
+        isFalling = false;
+
         Transform player_target = GameObject.Find("Player").transform;
         target = player_target;
         if (Random.Range(0.0f, 1.0f) <= cowardProbability)
@@ -151,6 +160,35 @@ public class Zombie : MonoBehaviour
         {
             navMeshAgent.isStopped = true;
             return;
+        }
+
+        // Check if the agent is still on the NavMesh
+        if (!navMeshAgent.isOnNavMesh && !isFalling)
+        {
+            // Disable the NavMeshAgent and switch to physics-based falling
+            navMeshAgent.enabled = false;
+            isFalling = true;
+
+            Debug.Log("Enemy is falling off the NavMesh!");
+        }
+
+        // Optionally, re-enable NavMeshAgent when the enemy lands back on a NavMesh
+        if (isFalling && navMeshAgent.enabled == false && rb.velocity.magnitude < 0.1f)
+        {
+            // Perform a NavMesh raycast to see if the agent can reposition
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(transform.position, out hit, 2.0f, NavMesh.AllAreas))
+            {
+                // Reposition the agent on the NavMesh
+                transform.position = hit.position;
+
+                // Switch back to NavMeshAgent control
+                rb.isKinematic = true;
+                navMeshAgent.enabled = true;
+                isFalling = false;
+
+                Debug.Log("Enemy has landed back on the NavMesh!");
+            }
         }
 
         ZombieAI();
