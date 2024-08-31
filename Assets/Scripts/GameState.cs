@@ -86,4 +86,10 @@ public class GameState : MonoBehaviour
         zombieSoundPlayers.Add(zombie, zombieSoundPlayer);
         zombieSoundPlayer.Play();
     }
+
+    public void TakeHit(int v)
+    {
+        playerHealth -= v;
+    }
 }
+
