@@ -28,7 +28,7 @@ public class FPSController : MonoBehaviour
         playerCamera = Camera.main;
         weaponCamera = GameObject.Find("WeaponCamera").GetComponent<Camera>();
         footsteps = GameObject.Find("Footsteps").GetComponent<AudioSource>();
-        footsteps.Play();
+        //footsteps.Play();
         jumpSound = GameObject.Find("JumpSound").GetComponent<AudioSource>();
     }
 
@@ -50,22 +50,25 @@ public class FPSController : MonoBehaviour
         {
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             moveDirection = transform.TransformDirection(moveDirection);
-            if (Input.GetButton("Fire3"))
+
+            moveDirection *= Input.GetButton("Fire3") ? run_speed : base_speed;
+            if (false) // Disabled, because we don't know why footsteps are being destroyed sometimes.
             {
-                footsteps.pitch = 1.5f;
-                footsteps.volume = 1.0f;
-                moveDirection *= run_speed;
+                if (Input.GetButton("Fire3"))
+                {
+                    footsteps.pitch = 1.5f;
+                    footsteps.volume = 1.0f;
+                }
+                else
+                {
+                    footsteps.pitch = 1.0f;
+                    footsteps.volume = 0.5f;
+                }
+                if (moveDirection.magnitude < 0.01f)  // Needs to be before gravity and jump.
+                    footsteps.Pause();
+                else
+                    footsteps.UnPause();
             }
-            else
-            {
-                footsteps.pitch = 1.0f;
-                footsteps.volume = 0.5f;
-                moveDirection *= base_speed;
-            }
-            if (moveDirection.magnitude < 0.01f)  // Needs to be before gravity and jump.
-                footsteps.Pause();
-            else
-                footsteps.UnPause();
 
             if (Input.GetButton("Jump"))
             {
