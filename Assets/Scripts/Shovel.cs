@@ -47,6 +47,14 @@ public class Shovel : MonoBehaviour
                 yield return new WaitForSeconds(preAttackDelay);
                 enemy.TakeHit(damage, hit.point, hit.point - playerCamera.transform.position);
             }
+            else if (hit.transform.CompareTag("Grave"))
+            {
+                animator.SetTrigger("Attack");
+                Grave grave = hit.transform.GetComponent<Grave>();
+                Debug.Log($"Hit: {hit.transform.name} {hit.transform.GetHashCode()}");
+                yield return new WaitForSeconds(preAttackDelay);
+                grave.Dig();
+            }
             else
             {
                 animator.SetTrigger("AttackMiss");

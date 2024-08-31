@@ -152,6 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59c0c00b748f45a794cea40224f377b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  graveRespawnTime: 10
+  graveMaxRespawnTime: 10
+  graveDigTime: 2
+  zombiePrefab: {fileID: 7281642674649003769, guid: 3f74d0e2ef290454faee6f44034950f0, type: 3}
 --- !u!1 &4609374402441700145
 GameObject:
   m_ObjectHideFlags: 0
