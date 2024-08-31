@@ -115,6 +115,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6544476584693743570}
   - component: {fileID: -3298712407985095458}
+  - component: {fileID: 9015817286234140526}
+  - component: {fileID: 325093598331408106}
   m_Layer: 0
   m_Name: Grave
   m_TagString: Grave
@@ -153,9 +155,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graveRespawnTime: 10
+  graveSpawnDelay: 10
+  graveMaxSpawnDelay: 10
   graveMaxRespawnTime: 10
   graveDigTime: 2
-  zombiePrefab: {fileID: 7281642674649003769, guid: 3f74d0e2ef290454faee6f44034950f0, type: 3}
+--- !u!65 &9015817286234140526
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917867576778941062}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3, y: 0.5, z: 1.5}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!65 &325093598331408106
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917867576778941062}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.21, y: 1, z: 0.55}
+  m_Center: {x: -1.25, y: 1.23, z: 0}
 --- !u!1 &4609374402441700145
 GameObject:
   m_ObjectHideFlags: 0
