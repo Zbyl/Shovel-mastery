@@ -16,6 +16,10 @@ monster_sound_medium_pain.wav by Leadstarson -- https://freesound.org/s/567998/ 
 Footsteps on light gravel path stride 2 by Sadiquecat -- https://freesound.org/s/688595/ -- License: Creative Commons 0
 Cicadas Forest Gravel Footstep Montage Mixed by Geoff-Bremner-Audio -- https://freesound.org/s/748197/ -- License: Creative Commons 0
 jump-grunt.wav by luminousfridge -- https://freesound.org/s/561555/ -- License: Attribution 4.0
+Squeaky dog toy quickly sucking in air 002.wav by MattRuthSound -- https://freesound.org/s/562065/ -- License: Attribution 4.0
+plunger_air.wav by LloydEvans09 -- https://freesound.org/s/221495/ -- License: Attribution NonCommercial 4.0
+dirt/gravel footstep 1 by Yoyodaman234 -- https://freesound.org/s/166511/ -- License: Creative Commons 0
+Stone hit by CamoMano -- https://freesound.org/s/431019/ -- License: Creative Commons 0
 
 Music:
 

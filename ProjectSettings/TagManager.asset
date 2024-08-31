@@ -7,6 +7,8 @@ TagManager:
   - Zombie
   - WeaponCamera
   - Grave
+  - Ground
+  - Stone
   layers:
   - Default
   - TransparentFX
