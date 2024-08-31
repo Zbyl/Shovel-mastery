@@ -964,6 +964,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: skeleton_game
       objectReference: {fileID: 0}
+    - target: {fileID: 1723136190662404021, guid: 65a50ab89f225064dae5583b4fecc2ad, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e97d8df80e1e7604b9207dce1215ec1f, type: 2}
     - target: {fileID: 5866666021909216657, guid: 65a50ab89f225064dae5583b4fecc2ad, type: 3}
       propertyPath: m_Controller
       value: 
