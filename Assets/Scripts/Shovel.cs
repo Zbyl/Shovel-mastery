@@ -8,6 +8,7 @@ public class Shovel : MonoBehaviour
     public float damage = 10.0f;      // Damage dealt by the pickaxe
     public float attackRange = 7.0f;  // Range of the pickaxe attack
     public Camera playerCamera;       // Reference to the player's camera
+    public WavePushback wavePrefab;     // Prefab for the wave effect
 
     public float preAttackDelay = 0.3f; // Time in seconds to wait before the attack happens
     public float attackCooldown = 0.0f; // Time in seconds before the player can attack again
@@ -26,13 +27,26 @@ public class Shovel : MonoBehaviour
         {
             StartCoroutine(Attack());
         }
+        else if (Input.GetButtonDown("Fire2") && canAttack)
+        {
+            StartCoroutine(Wave());
+        }
+    }
+
+    IEnumerator Wave()
+    {
+        canAttack = false;
+        animator.SetTrigger("AttackMiss");
+        yield return new WaitForSeconds(preAttackDelay);
+        Instantiate(wavePrefab, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(preAttackDelay);
+        canAttack = true;
     }
 
     IEnumerator Attack()
     {
-        canAttack = false; // Prevent multiple attacks during the delay
+        canAttack = false;
 
-        // Optional: Play a pre-attack animation or sound here
         RaycastHit hit;
         Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * attackRange, Color.red, 3.0f);
         bool raycastHit = Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward * attackRange, out hit, attackRange);

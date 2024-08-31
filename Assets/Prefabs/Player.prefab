@@ -200,7 +200,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 183
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -714,6 +714,7 @@ MonoBehaviour:
   damage: 10
   attackRange: 15
   playerCamera: {fileID: 7156870406025889818}
+  wavePrefab: {fileID: 1888327703288060626, guid: 14c7e5a28b8c045b290c8bf548d811ea, type: 3}
   preAttackDelay: 0.3
   attackCooldown: 0
 --- !u!95 &3478544363991269062
