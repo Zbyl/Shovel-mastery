@@ -14,7 +14,7 @@ public class Zombie : MonoBehaviour
     public float pushForceDecay = 0.01f;              /// How quickly pushForce goes down to zero.
     public float pushForce = 0.7f;                    /// Strength of a push.
 
-    public float health = 500.0f;
+    public float health = 50.0f;
 
     public float stunTime = 3.0f;
     private float stunTimer = 0.0f;
