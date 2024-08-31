@@ -37,9 +37,6 @@ public class Shovel : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && canAttack)
         {
             StartCoroutine(Attack());
-
-            // To remove:
-            GameState.Instance.playerHealth -= 1;
         }
         else if (Input.GetButtonDown("Fire2") && canAttack)
         {
