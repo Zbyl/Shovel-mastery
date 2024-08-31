@@ -1290,7 +1290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  attackRange: 15
+  attackRange: 4
   playerCamera: {fileID: 7156870406025889818}
   wavePrefab: {fileID: 1888327703288060626, guid: 14c7e5a28b8c045b290c8bf548d811ea, type: 3}
   preAttackDelay: 0.3

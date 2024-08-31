@@ -6,7 +6,7 @@ using System.Collections;
 public class Shovel : MonoBehaviour
 {
     public float damage = 10.0f;      // Damage dealt by the pickaxe
-    public float attackRange = 7.0f;  // Range of the pickaxe attack
+    public float attackRange = 4.0f;  // Range of the pickaxe attack
     public Camera playerCamera;       // Reference to the player's camera
     public WavePushback wavePrefab;     // Prefab for the wave effect
 
