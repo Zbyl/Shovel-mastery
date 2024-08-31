@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 247
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -708,6 +708,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cementary
       objectReference: {fileID: 0}
+    - target: {fileID: 3840102574011747132, guid: 332f6bbc7f382a44b8ab6be48f9acb59, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4820817164579599583, guid: 332f6bbc7f382a44b8ab6be48f9acb59, type: 3}
       propertyPath: m_LocalPosition.x
       value: -177.88974
@@ -747,6 +751,18 @@ PrefabInstance:
     - target: {fileID: 4820817164579599583, guid: 332f6bbc7f382a44b8ab6be48f9acb59, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5015338060497399533, guid: 332f6bbc7f382a44b8ab6be48f9acb59, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6715788620495885666, guid: 332f6bbc7f382a44b8ab6be48f9acb59, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817028257278201656, guid: 332f6bbc7f382a44b8ab6be48f9acb59, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

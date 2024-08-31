@@ -51,6 +51,7 @@ MonoBehaviour:
   graveMaxSpawnDelay: 10
   graveMaxRespawnTime: 10
   graveDigTime: 2
+  grave_opened: 0
 --- !u!1001 &4190651586612021530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -116,8 +117,12 @@ PrefabInstance:
       value: grave
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 51a69340c921a8d438d95772dd814c8d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 51a69340c921a8d438d95772dd814c8d, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
