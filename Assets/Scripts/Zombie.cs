@@ -5,6 +5,9 @@ using UnityEngine.AI;
 public class Zombie : MonoBehaviour
 {
     private Transform target;
+    private FPSController player;
+
+    GameState game;
     float minimalDistanceToTarget = 2.0f;      /// We won't come closer to target than this.
     public float minimalDistanceToTargetDefault = 2.0f;      /// We won't come closer to target than this.
     public float minimalDistanceToTargetForCowards = 3.0f;      /// Cowardly Zombies won't come closer to target than this.
@@ -36,6 +39,7 @@ public class Zombie : MonoBehaviour
     // If Zombie is within farRadius it walks to a random position on closeRadius, within approachAngle.
     // Otherwise zombie walks in random direction for a random distance within randomRadius.
     private float superCloseRadius = 7.0f;
+    private float attackRadius = 5.0f;
     private float closeRadius = 6.0f;
     private float farRadius = 20.0f;
     private float randomRadius = 10.0f;
@@ -46,6 +50,8 @@ public class Zombie : MonoBehaviour
     public GameObject debugTargetPrefab;
     private GameObject debugTarget;
 
+    private float hitDelay = 5f;
+
     enum ZombieState
     {
         RandomWalk,
@@ -54,7 +60,6 @@ public class Zombie : MonoBehaviour
     }
     private ZombieState zombieState = ZombieState.Direct;
     private Vector3 zombieTarget = Vector3.zero;
-
     void ZombieAI()
     {
         var dirToPlayer = (target.position - transform.position).normalized;
@@ -129,10 +134,12 @@ public class Zombie : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        game = GameObject.Find("GameState").GetComponent<GameState>();
         animator = animatedMesh.GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
 
         Transform player_target = GameObject.Find("Player").transform;
+        player = player_target.GetComponent<FPSController>();
         target = player_target;
         if (Random.Range(0.0f, 1.0f) <= cowardProbability)
         {
@@ -158,6 +165,12 @@ public class Zombie : MonoBehaviour
         }
 
         ZombieAI();
+
+        if (hitDelay > 0)
+        {
+            hitDelay -= Time.deltaTime;
+        }
+
         navMeshAgent.destination = zombieTarget;
         navMeshAgent.isStopped = isStunned;
 
@@ -187,6 +200,15 @@ public class Zombie : MonoBehaviour
             }
         }
         animator.SetBool("Stunned", isStunned);
+
+        float distToPlayer = (target.position - transform.position).magnitude;
+        if (distToPlayer < attackRadius && hitDelay <= 0)
+        {
+            animator.SetTrigger("Attack");
+            game.TakeHit(1);
+            hitDelay = 5f;
+        }
+
         transform.position += currentPushForce;
         currentPushForce = Vector3.MoveTowards(currentPushForce, Vector3.zero, pushForceDecay);
 
