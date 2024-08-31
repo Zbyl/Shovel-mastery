@@ -28,7 +28,9 @@ public class ZombieSpawner : MonoBehaviour
         if (delay <= 0 && zombiesCounter < maxZombies)
         {
             delay = 5.0f;
-            SpawnZombie(graves[Random.Range(0, graves.Count)]);
+            Grave grave = graves[Random.Range(0, graves.Count)];
+            grave.OpenGrave();
+            SpawnZombie(grave);
         }
     }
 
