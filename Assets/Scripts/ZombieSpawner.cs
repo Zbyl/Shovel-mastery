@@ -28,7 +28,10 @@ public class ZombieSpawner : MonoBehaviour
         if (delay <= 0 && zombiesCounter < maxZombies)
         {
             delay = 5.0f;
-            Grave grave = graves[Random.Range(0, graves.Count)];
+            List<Grave> unsealed_graves = graves.FindAll(grave => !grave.grave_sealed);
+            if (unsealed_graves.Count == 0) return;
+
+            Grave grave = graves[Random.Range(0, unsealed_graves.Count)];
             grave.OpenGrave();
             SpawnZombie(grave);
         }
@@ -36,7 +39,7 @@ public class ZombieSpawner : MonoBehaviour
 
     void SpawnZombie(Grave grave)
     {
-        Zombie newObject = Instantiate(zombiePrefab, grave.GetComponent<Transform>().position, grave.GetComponent<Transform>().rotation);
+        Zombie newObject = Instantiate(zombiePrefab, grave.spawnPoint.position, grave.spawnPoint.rotation);
         newObject.transform.parent = this.zombiesRoot;
     }
 }

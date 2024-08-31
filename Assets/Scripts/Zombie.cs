@@ -196,6 +196,15 @@ public class Zombie : MonoBehaviour
             var collisionPoint = collision.contacts[0].point;
             collision.gameObject.GetComponent<Zombie>().TakeHit(0.0f, collisionPoint, collisionPoint - transform.position, false);
         }
+        else if (collision.gameObject.CompareTag("DieArea"))
+        {
+            Grave grave = collision.gameObject.GetComponentInParent<Grave>();
+            if (grave.isDeadly)
+            {
+                grave.CloseGrave();
+                Destroy(gameObject);
+            }
+        }
     }
 
     public void TakeHit(float damage, Vector3 pushPosition, Vector3 pushDirection, bool waveHit)

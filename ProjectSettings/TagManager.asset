@@ -9,6 +9,7 @@ TagManager:
   - Grave
   - Ground
   - Stone
+  - DieArea
   layers:
   - Default
   - TransparentFX
