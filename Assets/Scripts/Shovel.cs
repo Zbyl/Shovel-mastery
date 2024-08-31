@@ -45,7 +45,7 @@ public class Shovel : MonoBehaviour
                 Zombie enemy = hit.transform.GetComponent<Zombie>();
                 Debug.Log($"Hit: {hit.transform.name} {hit.transform.GetHashCode()}");
                 yield return new WaitForSeconds(preAttackDelay);
-                enemy.TakeHit(damage, hit.point - playerCamera.transform.position);
+                enemy.TakeHit(damage, hit.point, hit.point - playerCamera.transform.position);
             }
             else
             {

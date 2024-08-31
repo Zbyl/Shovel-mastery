@@ -26,6 +26,8 @@ public class Zombie : MonoBehaviour
     private AudioSource footsteps;
     private AudioSource[] painSounds;
 
+    public GameObject hitParticlesPrefab; // Prefab for hit particles.
+
     void Awake()
     {
         footsteps = transform.Find("Footsteps").GetComponent<AudioSource>();
@@ -92,12 +94,17 @@ public class Zombie : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Zombie"))
         {
-            collision.gameObject.GetComponent<Zombie>().TakeHit(0.0f, collision.contacts[0].point - transform.position);
+            var collisionPoint = collision.contacts[0].point;
+            collision.gameObject.GetComponent<Zombie>().TakeHit(0.0f, collisionPoint, collisionPoint - transform.position);
         }
     }
 
-    public void TakeHit(float damage, Vector3 pushDirection)
+    public void TakeHit(float damage, Vector3 pushPosition, Vector3 pushDirection)
     {
+        var q = new Quaternion();
+        q.SetFromToRotation(Vector3.up, -pushDirection.normalized);
+        var hitParticles = Instantiate(hitParticlesPrefab, pushPosition, q);
+
         painSounds[Random.Range(0, painSounds.Length)].Play();
 
         if (!isStunned)

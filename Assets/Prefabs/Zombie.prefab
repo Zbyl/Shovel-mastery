@@ -63,6 +63,7 @@ MonoBehaviour:
   health: 500
   stunTime: 5
   animatedMesh: {fileID: 2978270686447819633}
+  hitParticlesPrefab: {fileID: 3261598487142912188, guid: 8e05ff8555c3b174a877d05c2cb0a656, type: 3}
 --- !u!114 &2131287599076190742
 MonoBehaviour:
   m_ObjectHideFlags: 0
