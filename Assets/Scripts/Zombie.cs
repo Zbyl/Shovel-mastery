@@ -189,23 +189,31 @@ public class Zombie : MonoBehaviour
         GameState.Instance.ZombieSoundTick(this);
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision other)
     {
-        if (collision.gameObject.CompareTag("Zombie"))
+        Debug.Log($"Collision with {other.gameObject.tag}");
+        if (other.gameObject.CompareTag("Zombie"))
         {
-            var collisionPoint = collision.contacts[0].point;
-            collision.gameObject.GetComponent<Zombie>().TakeHit(0.0f, collisionPoint, collisionPoint - transform.position, false);
+            var collisionPoint = other.contacts[0].point;
+            other.gameObject.GetComponent<Zombie>().TakeHit(0.0f, collisionPoint, collisionPoint - transform.position, false);
         }
-        else if (collision.gameObject.CompareTag("DieArea"))
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log($"Trigger with {other.gameObject.tag}");
+        if (other.gameObject.CompareTag("DieArea"))
         {
-            Grave grave = collision.gameObject.GetComponentInParent<Grave>();
+            Grave grave = other.gameObject.GetComponentInParent<Grave>();
             if (grave.isDeadly)
             {
+                Debug.Log($"Zombie {this.GetHashCode()} died in a grave");
                 grave.CloseGrave();
                 Die();
             }
         }
     }
+
 
     public void TakeHit(float damage, Vector3 pushPosition, Vector3 pushDirection, bool waveHit)
     {
@@ -217,10 +225,6 @@ public class Zombie : MonoBehaviour
         {
             waveSound.Play();
         }
-        else
-        {
-            painSounds[Random.Range(0, painSounds.Length)].Play();
-        }
 
         if (!isStunned)
         {
@@ -230,8 +234,13 @@ public class Zombie : MonoBehaviour
             animator.SetTrigger("StunTrigger");
         }
 
-        health -= damage;
-        Debug.Log($"Damage taken: {damage} {this.GetHashCode()}");
+        if (damage > 0)
+        {
+            health -= damage;
+            Debug.Log($"Damage taken: {damage} {this.GetHashCode()}");
+            painSounds[Random.Range(0, painSounds.Length)].Play();
+        }
+
         currentPushForce = pushDirection.normalized * pushForce;
         animator.SetTrigger("Hit");
 

@@ -11,7 +11,7 @@ public class Grave : MonoBehaviour
     public float graveMaxRespawnTime = 10.0f;
     public float graveDigTime = 2.0f;
 
-    public float invincibilityTime = 10.0f;
+    public float invincibilityTime = 15.0f;
 
     public Transform spawnPoint;
     public Collider dieArea;
@@ -28,10 +28,16 @@ public class Grave : MonoBehaviour
 
     void Update()
     {
-        if (!isDeadly && grave_opened){
+        if (invincibilityTime > 0 && grave_opened)
+        {
             invincibilityTime -= Time.deltaTime;
-        }else{
+        }
+
+        if (invincibilityTime <= 0 && !isDeadly)
+        {
             isDeadly = true;
+            dieArea.enabled = true;
+            Debug.Log("Grave is deadly");
         }
     }
 
@@ -43,29 +49,26 @@ public class Grave : MonoBehaviour
 
     public void OpenGrave()
     {
-        if (GameState.Instance.isPaused) return;
         grave_opened = true;
         SetGraveLid(false);
-        dieArea.enabled = false;
     }
 
     public void CloseGrave()
     {
         grave_opened = false;
         grave_sealed = true;
-        SetGraveLid(true);
     }
 
-    private void SetGraveLid(bool open)
+    private void SetGraveLid(bool enabled)
     {
         Transform childTransform = transform.Find("grave");
 
         if (childTransform != null)
         {
             MeshRenderer mesh = childTransform.GetComponent<MeshRenderer>();
-            mesh.enabled = false;
+            mesh.enabled = enabled;
             MeshCollider collider = childTransform.GetComponent<MeshCollider>();
-            collider.enabled = false;
+            collider.enabled = enabled;
         }
     }
 }

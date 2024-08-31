@@ -29,11 +29,12 @@ public class ZombieSpawner : MonoBehaviour
         {
             delay = 5.0f;
             List<Grave> unsealed_graves = graves.FindAll(grave => !grave.grave_sealed);
-            if (unsealed_graves.Count == 0) return;
-
-            Grave grave = graves[Random.Range(0, unsealed_graves.Count)];
-            grave.OpenGrave();
-            SpawnZombie(grave);
+            if (unsealed_graves.Count > 0)
+            {
+                Grave grave = graves[Random.Range(0, unsealed_graves.Count)];
+                grave.OpenGrave();
+                SpawnZombie(grave);
+            }
         }
     }
 
