@@ -3,7 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class FPSController : MonoBehaviour
 {
-    public float speed = 5.0f;          // Movement speed
+    public float base_speed = 5.0f;     // Base movement speed
+    public float run_speed = 10.0f;     // Running speed
     public float jumpSpeed = 8.0f;      // Jumping speed
     public float gravity = 20.0f;       // Gravity force
     public float lookSpeed = 2.0f;      // Mouse sensitivity
@@ -44,12 +45,25 @@ public class FPSController : MonoBehaviour
         weaponCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
 
+        
+
         // Handle movement
         if (characterController.isGrounded)
         {
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= speed;
+            if (Input.GetButton("Fire3"))
+            {
+                footsteps.pitch = 1.5f;
+                footsteps.volume = 1.0f;
+                moveDirection *= run_speed;
+            }
+            else
+            {
+                footsteps.pitch = 1.0f;
+                footsteps.volume = 0.5f;
+                moveDirection *= base_speed;
+            }
             footsteps.volume = (moveDirection.magnitude > 0.01f) ? 1.0f : 0.0f; // Needs to be before gravity and jump.
 
             if (Input.GetButton("Jump"))
