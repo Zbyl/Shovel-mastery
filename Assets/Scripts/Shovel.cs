@@ -21,7 +21,8 @@ public class Shovel : MonoBehaviour
     private AudioSource stoneSound;
     private AudioSource waveSound;
 
-    public GameObject swingParticlesPrefab; // Particles for swinging shovel.
+    public GameObject swingParticlesPrefab; // Particles for swinging shovel, hitting not-stone and not metal.
+    public GameObject stoneParticlesPrefab; // Particles for swinging shovel, hitting stone and metal.
 
     void Start()
     {
@@ -73,7 +74,7 @@ public class Shovel : MonoBehaviour
                 Zombie enemy = hit.transform.GetComponent<Zombie>();
                 Debug.Log($"Hit: {hit.transform.name} {hit.transform.GetHashCode()}");
                 yield return new WaitForSeconds(preAttackDelay);
-                ShowSwingParticles();
+                ShowSwingParticles(false);
                 enemy.TakeHit(damage, hit.point, hit.point - playerCamera.transform.position, false);
             }
             else if (hit.transform.CompareTag("Grave"))
@@ -82,7 +83,7 @@ public class Shovel : MonoBehaviour
                 Grave grave = hit.transform.GetComponent<Grave>();
                 Debug.Log($"Hit: {hit.transform.name} {hit.transform.GetHashCode()}");
                 yield return new WaitForSeconds(preAttackDelay);
-                ShowSwingParticles();
+                ShowSwingParticles(false);
                 grave.Dig();
                 dirtSound.Play();
             }
@@ -90,7 +91,7 @@ public class Shovel : MonoBehaviour
             {
                 animator.SetTrigger("Attack");
                 yield return new WaitForSeconds(preAttackDelay);
-                ShowSwingParticles();
+                ShowSwingParticles(false);
                 dirtSound.Play();
 
             }
@@ -98,7 +99,7 @@ public class Shovel : MonoBehaviour
             {
                 animator.SetTrigger("Attack");
                 yield return new WaitForSeconds(preAttackDelay);
-                ShowSwingParticles();
+                ShowSwingParticles(true);
                 stoneSound.Play();
             }
             else
@@ -117,9 +118,9 @@ public class Shovel : MonoBehaviour
         canAttack = true; // Allow the player to attack again
     }
 
-    void ShowSwingParticles()
+    void ShowSwingParticles(bool stone)
     {
         var q = new Quaternion();
-        var hitParticles = Instantiate(swingParticlesPrefab, transform.parent.transform.position + transform.parent.transform.forward * 2.0f, q, transform.parent);
+        var hitParticles = Instantiate(stone ? stoneParticlesPrefab : swingParticlesPrefab, transform.parent.transform.position + transform.parent.transform.forward * 0.5f, q, transform.parent);
     }
 }
