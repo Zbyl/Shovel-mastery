@@ -147,6 +147,12 @@ public class Zombie : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameState.Instance.isPaused)
+        {
+            navMeshAgent.isStopped = true;
+            return;
+        }
+
         ZombieAI();
         navMeshAgent.destination = zombieTarget;
         navMeshAgent.isStopped = isStunned;

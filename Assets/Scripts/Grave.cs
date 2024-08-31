@@ -23,6 +23,8 @@ public class Grave : MonoBehaviour
 
     public void OpenGrave()
     {
+        if (GameState.Instance.isPaused) return;
+
         // Find the child GameObject by name
         Transform childTransform = transform.Find("grave");
         grave_opened = true;
