@@ -903,7 +903,7 @@ MonoBehaviour:
   jumpSpeed: 8
   gravity: 20
   lookSpeed: 2
-  lookXLimit: 45
+  lookXLimit: 80
   shovel: {fileID: 0}
 --- !u!1 &7596241881083218186
 GameObject:

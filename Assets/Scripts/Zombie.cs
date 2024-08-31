@@ -76,7 +76,8 @@ public class Zombie : MonoBehaviour
             lookForNewTarget = true;
         }
 
-        if ((desiredState != zombieState) || lookForNewTarget) {
+        if ((desiredState != zombieState) || lookForNewTarget)
+        {
             if (desiredState == ZombieState.RandomWalk)
             {
                 var angle = Random.Range(0.0f, 360.0f);
@@ -213,13 +214,11 @@ public class Zombie : MonoBehaviour
             Debug.Log($"Zombie {this.GetHashCode()} is stunned");
             animator.SetTrigger("StunTrigger");
         }
-        else
-        {
-            health -= damage;
-            Debug.Log($"Damage taken: {damage} {this.GetHashCode()}");
-            currentPushForce = pushDirection.normalized * pushForce;
-            animator.SetTrigger("Hit");
-        }
+
+        health -= damage;
+        Debug.Log($"Damage taken: {damage} {this.GetHashCode()}");
+        currentPushForce = pushDirection.normalized * pushForce;
+        animator.SetTrigger("Hit");
 
         if (health <= 0)
         {

@@ -7,7 +7,7 @@ public class FPSController : MonoBehaviour
     public float jumpSpeed = 8.0f;      // Jumping speed
     public float gravity = 20.0f;       // Gravity force
     public float lookSpeed = 2.0f;      // Mouse sensitivity
-    public float lookXLimit = 45.0f;    // Vertical look limit
+    public float lookXLimit = 80.0f;    // Vertical look limit
 
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController characterController;
