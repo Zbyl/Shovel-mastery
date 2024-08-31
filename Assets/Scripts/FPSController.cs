@@ -30,14 +30,12 @@ public class FPSController : MonoBehaviour
         footsteps = GameObject.Find("Footsteps").GetComponent<AudioSource>();
         footsteps.Play();
         jumpSound = GameObject.Find("JumpSound").GetComponent<AudioSource>();
-
-        // Lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     void Update()
     {
+        if (GameState.Instance.isPaused) return;
+
         // Handle rotation
         rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
         rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);

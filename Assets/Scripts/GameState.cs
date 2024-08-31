@@ -11,6 +11,7 @@ public class GameState : MonoBehaviour
     Dictionary<Zombie, ZombieSoundPlayer> zombieSoundPlayers = new Dictionary<Zombie, ZombieSoundPlayer>();
 
     public int tempCounter = 0;
+    public bool isPaused = true;
 
     private void Awake()
     {

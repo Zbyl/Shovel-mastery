@@ -32,6 +32,8 @@ public class Shovel : MonoBehaviour
 
     void Update()
     {
+        if (GameState.Instance.isPaused) return;
+
         if (Input.GetButtonDown("Fire1") && canAttack)
         {
             StartCoroutine(Attack());
