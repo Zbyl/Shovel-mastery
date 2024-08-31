@@ -49,6 +49,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8587543166179490112, guid: 494a4dfc61773b348836ff40aa46d908, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8587543166179490112, guid: 494a4dfc61773b348836ff40aa46d908, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -63,6 +67,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 494a4dfc61773b348836ff40aa46d908, type: 3}
       propertyPath: m_Name
       value: trees_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 494a4dfc61773b348836ff40aa46d908, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 494a4dfc61773b348836ff40aa46d908, type: 3}
       propertyPath: m_StaticEditorFlags
