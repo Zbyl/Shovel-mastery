@@ -82,12 +82,12 @@ public class Shovel : MonoBehaviour
             }
             else if (hit.transform.CompareTag("Ground"))
             {
-                animator.SetTrigger("AttackMiss");
+                animator.SetTrigger("Attack");
                 dirtSound.Play();
             }
             else if (hit.transform.CompareTag("Stone"))
             {
-                animator.SetTrigger("AttackMiss");
+                animator.SetTrigger("Attack");
                 stoneSound.Play();
             }
             else
