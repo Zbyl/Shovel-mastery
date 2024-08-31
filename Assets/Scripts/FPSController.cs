@@ -62,7 +62,10 @@ public class FPSController : MonoBehaviour
                 footsteps.volume = 0.5f;
                 moveDirection *= base_speed;
             }
-            footsteps.volume = (moveDirection.magnitude > 0.01f) ? 1.0f : 0.0f; // Needs to be before gravity and jump.
+            if (moveDirection.magnitude < 0.01f)  // Needs to be before gravity and jump.
+                footsteps.Pause();
+            else
+                footsteps.UnPause();
 
             if (Input.GetButton("Jump"))
             {

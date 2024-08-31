@@ -715,7 +715,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1059,7 +1059,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7596241881083218186}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &7620002076338695571
 GameObject:
   m_ObjectHideFlags: 0
