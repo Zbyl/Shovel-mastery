@@ -28,6 +28,92 @@ public class Zombie : MonoBehaviour
 
     public GameObject hitParticlesPrefab; // Prefab for hit particles.
 
+    // Zombie AI
+    // If Zombie is within superCloseRadius it walks straight to the player.
+    // If Zombie is within farRadius it walks to a random position on closeRadius, within approachAngle.
+    // Otherwise zombie walks in random direction for a random distance within randomRadius.
+    private float superCloseRadius = 7.0f;
+    private float closeRadius = 6.0f;
+    private float farRadius = 20.0f;
+    private float randomRadius = 10.0f;
+    private float approachAngle = 75.0f; // In degrees.
+
+    private bool showDebugTarget = false;
+    public GameObject debugTargetPrefab;
+    private GameObject debugTarget;
+
+    enum ZombieState
+    {
+        RandomWalk,
+        Approach,
+        Direct,
+    }
+    private ZombieState zombieState = ZombieState.Direct;
+    private Vector3 zombieTarget = Vector3.zero;
+
+    void ZombieAI()
+    {
+        var dirToPlayer = (target.position - transform.position).normalized;
+        var distToPlayer = (target.position - transform.position).magnitude;
+        var dirToCurrentTarget = (zombieTarget - transform.position).normalized;
+        var distToCurrentTarget = (zombieTarget - transform.position).magnitude;
+
+        var desiredState = ZombieState.RandomWalk;
+        if (distToPlayer < farRadius)
+        {
+            desiredState = ZombieState.Approach;
+        }
+        if (distToPlayer < superCloseRadius)
+        {
+            desiredState = ZombieState.Direct;
+        }
+
+        var lookForNewTarget = false;
+        if ((zombieState == desiredState) && (distToCurrentTarget < 1.0f))
+        {
+            Debug.Log($"Looking for new target for {zombieState}");
+            lookForNewTarget = true;
+        }
+
+        if ((desiredState != zombieState) || lookForNewTarget) {
+            if (desiredState == ZombieState.RandomWalk)
+            {
+                var angle = Random.Range(0.0f, 360.0f);
+                var offset = Quaternion.Euler(0.0f, angle, 0.0f) * Vector3.forward * randomRadius;
+                zombieTarget = transform.position + offset;
+            }
+            if (desiredState == ZombieState.Approach)
+            {
+                var angle = Random.Range(-approachAngle, approachAngle);
+                var offset = Quaternion.Euler(0.0f, angle, 0.0f) * -dirToPlayer * closeRadius;
+                zombieTarget = target.position + offset;
+            }
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(zombieTarget, out hit, 100.0f, NavMesh.AllAreas))
+            {
+                zombieTarget = hit.position;
+            }
+            else
+            {
+                Debug.Log($"Cannot find target on navmesh.");
+            }
+
+            Debug.Log($"Switching from {zombieState} to {desiredState}. Target: {zombieTarget}");
+            zombieState = desiredState;
+        }
+
+        if (zombieState == ZombieState.Direct)
+        {
+            zombieTarget = target.position - dirToPlayer.normalized * minimalDistanceToTarget;
+        }
+
+        if (showDebugTarget)
+        {
+            debugTarget.transform.position = zombieTarget;
+        }
+    }
+
     void Awake()
     {
         footsteps = transform.Find("Footsteps").GetComponent<AudioSource>();
@@ -49,17 +135,21 @@ public class Zombie : MonoBehaviour
         {
             minimalDistanceToTarget = minimalDistanceToTargetDefault;
         }
+
+        if (showDebugTarget)
+        {
+            debugTarget = Instantiate(debugTargetPrefab, transform.position, transform.rotation, transform.parent);
+        }
     }
 
     void FixedUpdate()
     {
-        var vecToDestination = target.position - transform.position;
-        var targetPoint = target.position - vecToDestination.normalized * minimalDistanceToTarget;
-        navMeshAgent.destination = targetPoint;
+        ZombieAI();
+        navMeshAgent.destination = zombieTarget;
         navMeshAgent.isStopped = isStunned;
 
         var wasWalking = animator.GetBool("Walking");
-        var isWalking = (targetPoint - transform.position).magnitude > 0.1f;
+        var isWalking = (zombieTarget - transform.position).magnitude > 0.1f;
         animator.SetBool("Walking", isWalking);
         if (wasWalking != isWalking)
         {
