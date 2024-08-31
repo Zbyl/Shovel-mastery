@@ -22,6 +22,7 @@ dirt/gravel footstep 1 by Yoyodaman234 -- https://freesound.org/s/166511/ -- Lic
 Stone hit by CamoMano -- https://freesound.org/s/431019/ -- License: Creative Commons 0
 Magic Words - Copyright/Attribution Notice: Spring Spring
 [Ambient Loop] Deep ambient pulses 2 by waveplaySFX -- https://freesound.org/s/529137/ -- License: Creative Commons 0
+wood impact 10.wav by kwahmah_02 -- https://freesound.org/s/245306/ -- License: Attribution 3.0
 
 Music:
 

@@ -62,7 +62,9 @@ MonoBehaviour:
   stunTime: 5
   animatedMesh: {fileID: 2978270686447819633}
   hitParticlesPrefab: {fileID: 3261598487142912188, guid: 8e05ff8555c3b174a877d05c2cb0a656, type: 3}
+  skeletonBonesPrefab: {fileID: 8514875762345313439, guid: 9ee474077342cce49b3a9c912212b927, type: 3}
   debugTargetPrefab: {fileID: 3285974041346561629, guid: 88439ddfe9e61e444b84c9613ecc2c57, type: 3}
+  isFalling: 0
 --- !u!114 &2131287599076190742
 MonoBehaviour:
   m_ObjectHideFlags: 0

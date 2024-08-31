@@ -31,6 +31,7 @@ public class Zombie : MonoBehaviour
     private Rigidbody rb;
 
     public GameObject hitParticlesPrefab; // Prefab for hit particles.
+    public GameObject skeletonBonesPrefab; // Prefab for bones.
 
     // Zombie AI
     // If Zombie is within superCloseRadius it walks straight to the player.
@@ -291,6 +292,7 @@ public class Zombie : MonoBehaviour
     void Die()
     {
         // Add death effects, animations, etc.
+        var bones = Instantiate(skeletonBonesPrefab, transform.position, transform.rotation, transform.parent);
         Destroy(gameObject);
     }
 }
