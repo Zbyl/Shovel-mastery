@@ -163,11 +163,11 @@ MonoBehaviour:
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 1
+  m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 1
+  m_VoxelSize: 0.07333333
+  m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: dbd9264a2beb240adaee1277fb7d9b85, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &41117732
@@ -897,10 +897,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cementary
       objectReference: {fileID: 0}
-    - target: {fileID: 3840102574011747132, guid: 332f6bbc7f382a44b8ab6be48f9acb59, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4820817164579599583, guid: 332f6bbc7f382a44b8ab6be48f9acb59, type: 3}
       propertyPath: m_LocalPosition.x
       value: -177.88974
@@ -939,22 +935,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4820817164579599583, guid: 332f6bbc7f382a44b8ab6be48f9acb59, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5015338060497399533, guid: 332f6bbc7f382a44b8ab6be48f9acb59, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6715788620495885666, guid: 332f6bbc7f382a44b8ab6be48f9acb59, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6817028257278201656, guid: 332f6bbc7f382a44b8ab6be48f9acb59, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8605455371903694756, guid: 332f6bbc7f382a44b8ab6be48f9acb59, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
