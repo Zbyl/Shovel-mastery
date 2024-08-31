@@ -53,7 +53,7 @@ public class Shovel : MonoBehaviour
         canAttack = false;
         animator.SetTrigger("AttackMiss");
         yield return new WaitForSeconds(preAttackDelay);
-        Instantiate(wavePrefab, transform.position, Quaternion.identity);
+        Instantiate(wavePrefab, transform.transform.forward * 4, Quaternion.identity);
         yield return new WaitForSeconds(preAttackDelay);
         canAttack = true;
     }

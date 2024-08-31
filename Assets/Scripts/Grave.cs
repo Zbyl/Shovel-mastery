@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Grave : MonoBehaviour
 {
@@ -69,6 +71,8 @@ public class Grave : MonoBehaviour
             mesh.enabled = enabled;
             MeshCollider collider = childTransform.GetComponent<MeshCollider>();
             collider.enabled = enabled;
+            NavMeshObstacle navMeshObstacle = childTransform.GetComponent<NavMeshObstacle>();
+            navMeshObstacle.enabled = enabled;
         }
     }
 }
