@@ -154,8 +154,15 @@ public class Zombie : MonoBehaviour
         }
 
         ZombieAI();
-        navMeshAgent.destination = zombieTarget;
-        navMeshAgent.isStopped = isStunned;
+        if (currentPushForce.magnitude == 0.0f)
+        {
+            navMeshAgent.enabled = true;
+            navMeshAgent.destination = zombieTarget;
+            navMeshAgent.isStopped = isStunned;
+        } else
+        {
+            navMeshAgent.enabled = false;
+        }
 
         var wasWalking = animator.GetBool("Walking");
         var isWalking = (zombieTarget - transform.position).magnitude > 0.1f;
@@ -232,6 +239,9 @@ public class Zombie : MonoBehaviour
 
         health -= damage;
         Debug.Log($"Damage taken: {damage} {this.GetHashCode()}");
+        pushDirection = pushDirection.normalized;
+        var vertMagnitude = Vector3.Dot(pushDirection, Vector3.up);
+        pushDirection -= vertMagnitude * Vector3.up;
         currentPushForce = pushDirection.normalized * pushForce;
         animator.SetTrigger("Hit");
 
