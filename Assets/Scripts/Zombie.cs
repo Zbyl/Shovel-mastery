@@ -40,6 +40,7 @@ public class Zombie : MonoBehaviour
     private float farRadius = 20.0f;
     private float randomRadius = 10.0f;
     private float approachAngle = 75.0f; // In degrees.
+    private bool isDead = false;
 
     private bool showDebugTarget = false;
     public GameObject debugTargetPrefab;
@@ -220,6 +221,8 @@ public class Zombie : MonoBehaviour
 
     public void TakeHit(float damage, Vector3 pushPosition, Vector3 pushDirection, bool waveHit)
     {
+        if (isDead) return; /// Attempt to fix bug with null sound. Probably won't work...
+
         var q = new Quaternion();
         q.SetFromToRotation(Vector3.up, -pushDirection.normalized);
         var hitParticles = Instantiate(hitParticlesPrefab, pushPosition, q);
@@ -255,6 +258,7 @@ public class Zombie : MonoBehaviour
 
     void Die()
     {
+        isDead = true;
         // Add death effects, animations, etc.
         var bones = Instantiate(skeletonBonesPrefab, transform.position, transform.rotation, transform.parent);
         Destroy(gameObject);
