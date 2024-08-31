@@ -13,7 +13,7 @@ public class WavePushback : MonoBehaviour
         Collider[] enemiesHit = Physics.OverlapSphere(transform.position, waveRadius, enemyLayer);
         foreach (Collider enemy in enemiesHit)
         {
-            enemy.GetComponent<Zombie>().TakeHit(waveHitForce, enemy.transform.position, enemy.transform.position - transform.position);
+            enemy.GetComponent<Zombie>().TakeHit(waveHitForce, enemy.transform.position, enemy.transform.position - transform.position, true);
         }
 
         Destroy(gameObject);

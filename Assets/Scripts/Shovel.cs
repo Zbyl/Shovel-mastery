@@ -16,8 +16,17 @@ public class Shovel : MonoBehaviour
 
     private Animator animator;
 
+    private AudioSource missSound;
+    private AudioSource dirtSound;
+    private AudioSource stoneSound;
+    private AudioSource waveSound;
+
     void Start()
     {
+        missSound = transform.Find("MissSound").GetComponent<AudioSource>();
+        dirtSound = transform.Find("DirtSound").GetComponent<AudioSource>();
+        stoneSound = transform.Find("StoneSound").GetComponent<AudioSource>();
+        waveSound = transform.Find("WaveSound").GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
     }
 
@@ -35,6 +44,7 @@ public class Shovel : MonoBehaviour
 
     IEnumerator Wave()
     {
+        waveSound.Play();
         canAttack = false;
         animator.SetTrigger("AttackMiss");
         yield return new WaitForSeconds(preAttackDelay);
@@ -59,7 +69,7 @@ public class Shovel : MonoBehaviour
                 Zombie enemy = hit.transform.GetComponent<Zombie>();
                 Debug.Log($"Hit: {hit.transform.name} {hit.transform.GetHashCode()}");
                 yield return new WaitForSeconds(preAttackDelay);
-                enemy.TakeHit(damage, hit.point, hit.point - playerCamera.transform.position);
+                enemy.TakeHit(damage, hit.point, hit.point - playerCamera.transform.position, false);
             }
             else if (hit.transform.CompareTag("Grave"))
             {
@@ -68,15 +78,28 @@ public class Shovel : MonoBehaviour
                 Debug.Log($"Hit: {hit.transform.name} {hit.transform.GetHashCode()}");
                 yield return new WaitForSeconds(preAttackDelay);
                 grave.Dig();
+                dirtSound.Play();
+            }
+            else if (hit.transform.CompareTag("Ground"))
+            {
+                animator.SetTrigger("AttackMiss");
+                dirtSound.Play();
+            }
+            else if (hit.transform.CompareTag("Stone"))
+            {
+                animator.SetTrigger("AttackMiss");
+                stoneSound.Play();
             }
             else
             {
                 animator.SetTrigger("AttackMiss");
+                missSound.Play();
             }
         }
         else
         {
             animator.SetTrigger("AttackMiss");
+            missSound.Play();
         }
         yield return new WaitForSeconds(attackCooldown);
 

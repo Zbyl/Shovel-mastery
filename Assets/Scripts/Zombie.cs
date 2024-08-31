@@ -24,6 +24,7 @@ public class Zombie : MonoBehaviour
     private Animator animator;
 
     private AudioSource footsteps;
+    private AudioSource waveSound;
     private AudioSource[] painSounds;
 
     public GameObject hitParticlesPrefab; // Prefab for hit particles.
@@ -71,7 +72,7 @@ public class Zombie : MonoBehaviour
         var lookForNewTarget = false;
         if ((zombieState == desiredState) && (distToCurrentTarget < 1.0f))
         {
-            Debug.Log($"Looking for new target for {zombieState}");
+            //Debug.Log($"Looking for new target for {zombieState}");
             lookForNewTarget = true;
         }
 
@@ -96,10 +97,10 @@ public class Zombie : MonoBehaviour
             }
             else
             {
-                Debug.Log($"Cannot find target on navmesh.");
+                //Debug.Log($"Cannot find target on navmesh.");
             }
 
-            Debug.Log($"Switching from {zombieState} to {desiredState}. Target: {zombieTarget}");
+            //Debug.Log($"Switching from {zombieState} to {desiredState}. Target: {zombieTarget}");
             zombieState = desiredState;
         }
 
@@ -117,6 +118,7 @@ public class Zombie : MonoBehaviour
     void Awake()
     {
         footsteps = transform.Find("Footsteps").GetComponent<AudioSource>();
+        waveSound = transform.Find("WaveSound").GetComponent<AudioSource>();
         painSounds = transform.Find("PainSounds").GetComponentsInChildren<AudioSource>();
     }
 
@@ -185,17 +187,24 @@ public class Zombie : MonoBehaviour
         if (collision.gameObject.CompareTag("Zombie"))
         {
             var collisionPoint = collision.contacts[0].point;
-            collision.gameObject.GetComponent<Zombie>().TakeHit(0.0f, collisionPoint, collisionPoint - transform.position);
+            collision.gameObject.GetComponent<Zombie>().TakeHit(0.0f, collisionPoint, collisionPoint - transform.position, false);
         }
     }
 
-    public void TakeHit(float damage, Vector3 pushPosition, Vector3 pushDirection)
+    public void TakeHit(float damage, Vector3 pushPosition, Vector3 pushDirection, bool waveHit)
     {
         var q = new Quaternion();
         q.SetFromToRotation(Vector3.up, -pushDirection.normalized);
         var hitParticles = Instantiate(hitParticlesPrefab, pushPosition, q);
 
-        painSounds[Random.Range(0, painSounds.Length)].Play();
+        if (waveHit)
+        {
+            waveSound.Play();
+        }
+        else
+        {
+            painSounds[Random.Range(0, painSounds.Length)].Play();
+        }
 
         if (!isStunned)
         {
