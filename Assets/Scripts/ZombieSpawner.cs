@@ -36,7 +36,7 @@ public class ZombieSpawner : MonoBehaviour
 
     void SpawnZombie(Grave grave)
     {
-        Zombie newObject = Instantiate(zombiePrefab, grave.GetComponent<Transform>().position, grave.GetComponent<Transform>().rotation);
+        Zombie newObject = Instantiate(zombiePrefab, grave.spawnPoint.position, grave.spawnPoint.rotation);
         newObject.transform.parent = this.zombiesRoot;
     }
 }

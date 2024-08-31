@@ -13,7 +13,14 @@ public class Grave : MonoBehaviour
     public float graveMaxRespawnTime = 10.0f;
     public float graveDigTime = 2.0f;
 
+    public Transform spawnPoint;
+
     public bool grave_opened = false;
+
+    void Start()
+    {
+        spawnPoint = transform.Find("SpawnPoint");
+    }
 
     public void Dig()
     {
