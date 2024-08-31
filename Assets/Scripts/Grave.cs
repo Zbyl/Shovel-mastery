@@ -23,10 +23,13 @@ public class Grave : MonoBehaviour
     public bool grave_sealed = false;
     public bool isDeadly = false;
 
+    private ParticleSystem vfx;
+
     void Start()
     {
         spawnPoint = transform.Find("SpawnPoint");
         dieArea = transform.Find("DieArea").GetComponent<Collider>();
+        vfx = transform.Find("vfx_grave").GetComponent<ParticleSystem>();
     }
 
     void Update()
@@ -52,29 +55,37 @@ public class Grave : MonoBehaviour
 
     public void OpenGrave()
     {
+        StartCoroutine(SetGraveLid(false));
         isDeadly = false;
         invincibilityTime = maxInvincibilityTime;
         grave_opened = true;
-        SetGraveLid(false);
     }
 
     public void CloseGrave()
     {
+        StartCoroutine(SetGraveLid(false)); // on purpose
         grave_opened = false;
         grave_sealed = true;
     }
 
-    private void SetGraveLid(bool enabled)
+    IEnumerator SetGraveLid(bool enabled)
     {
         Transform childTransform = transform.Find("grave");
 
         if (childTransform != null)
         {
             MeshRenderer mesh = childTransform.GetComponent<MeshRenderer>();
-            mesh.enabled = enabled;
             MeshCollider collider = childTransform.GetComponent<MeshCollider>();
-            collider.enabled = enabled;
             NavMeshObstacle navMeshObstacle = childTransform.GetComponent<NavMeshObstacle>();
+
+            if (mesh.enabled != enabled || collider.enabled != enabled || navMeshObstacle.enabled != enabled)
+            {
+                vfx.Play();
+                yield return new WaitForSeconds(0.3f);
+            }
+
+            collider.enabled = enabled;
+            mesh.enabled = enabled;
             navMeshObstacle.enabled = enabled;
         }
     }
