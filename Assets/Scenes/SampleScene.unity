@@ -370,7 +370,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186d4e9da981ba04ca6df62c4efa1f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zombieSoundPlayerPrefab: {fileID: -6889209599817032747, guid: 8986ac54168f55a4195062f130263787, type: 3}
   tempCounter: 0
+  maxZombieSoundDistance: 10
+  minZombieSoundInterval: 0.5
+  maxZombieSoundInterval: 3
 --- !u!4 &962604216
 Transform:
   m_ObjectHideFlags: 0
