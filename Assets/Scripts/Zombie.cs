@@ -202,7 +202,7 @@ public class Zombie : MonoBehaviour
             if (grave.isDeadly)
             {
                 grave.CloseGrave();
-                Destroy(gameObject);
+                Die();
             }
         }
     }
