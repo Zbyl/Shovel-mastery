@@ -1295,6 +1295,7 @@ MonoBehaviour:
   wavePrefab: {fileID: 1888327703288060626, guid: 14c7e5a28b8c045b290c8bf548d811ea, type: 3}
   preAttackDelay: 0.3
   attackCooldown: 0
+  swingParticlesPrefab: {fileID: 3261598487142912188, guid: 8e05ff8555c3b174a877d05c2cb0a656, type: 3}
 --- !u!95 &3478544363991269062
 Animator:
   serializedVersion: 5
