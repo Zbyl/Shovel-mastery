@@ -14,6 +14,7 @@ public class Grave : MonoBehaviour
     public float graveDigTime = 2.0f;
 
     public float invincibilityTime = 15.0f;
+    public float maxInvincibilityTime = 15.0f;
 
     public Transform spawnPoint;
     public Collider dieArea;
@@ -51,6 +52,8 @@ public class Grave : MonoBehaviour
 
     public void OpenGrave()
     {
+        isDeadly = false;
+        invincibilityTime = maxInvincibilityTime;
         grave_opened = true;
         SetGraveLid(false);
     }
