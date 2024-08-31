@@ -9,6 +9,8 @@ public class Hud : MonoBehaviour
     private GameObject menu;
     private GameObject mainMenu;
     private GameObject credits;
+    private List<Transform> heartsGood = new List<Transform>();
+    private List<Transform> heartsBad = new List<Transform>();
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +19,14 @@ public class Hud : MonoBehaviour
         menu = transform.Find("Canvas/Menu").gameObject;
         mainMenu = transform.Find("Canvas/Menu/MainMenu").gameObject;
         credits = transform.Find("Canvas/Menu/Credits").gameObject;
+        foreach (Transform child in transform.Find("Canvas/Hud/HeartsGood"))
+        {
+            heartsGood.Add(child);
+        }
+        foreach (Transform child in transform.Find("Canvas/Hud/HeartsBad"))
+        {
+            heartsBad.Add(child);
+        }
 
         ShowMenu(false);
     }
@@ -24,6 +34,7 @@ public class Hud : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateHealth();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ShowMenu(!menu.activeInHierarchy);
@@ -36,7 +47,7 @@ public class Hud : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            //hud.SetActive(false);
+            hud.SetActive(false);
             menu.SetActive(true);
             mainMenu.SetActive(true);
             credits.SetActive(false);
@@ -46,7 +57,7 @@ public class Hud : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            //hud.SetActive(true);
+            hud.SetActive(true);
             menu.SetActive(false);
             GameState.Instance.isPaused = false;
         }
@@ -62,5 +73,16 @@ public class Hud : MonoBehaviour
     {
         Debug.Log("Exit game.");
         Application.Quit();
+    }
+
+    public void UpdateHealth()
+    {
+        var playerHealth = GameState.Instance.playerHealth;
+        for (int i = 0; i < heartsGood.Count; ++i)
+        {
+            bool activate = i < playerHealth;
+            heartsGood[i].gameObject.SetActive(activate);
+            heartsBad[i].gameObject.SetActive(!activate);
+        }
     }
 }

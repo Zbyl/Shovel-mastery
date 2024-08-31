@@ -12,6 +12,9 @@ public class GameState : MonoBehaviour
 
     public int tempCounter = 0;
     public bool isPaused = true;
+    public static int playerMaxHealth = 5;
+    public int playerHealth = playerMaxHealth;
+    public AudioSource healingSound; // Used by healing flower. Kept here for simplicity.
 
     private void Awake()
     {
@@ -29,6 +32,7 @@ public class GameState : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+        healingSound = GameObject.Find("HealingSound").GetComponent<AudioSource>();
     }
 
     void Update()

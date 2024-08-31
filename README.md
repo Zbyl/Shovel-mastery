@@ -20,6 +20,8 @@ Squeaky dog toy quickly sucking in air 002.wav by MattRuthSound -- https://frees
 plunger_air.wav by LloydEvans09 -- https://freesound.org/s/221495/ -- License: Attribution NonCommercial 4.0
 dirt/gravel footstep 1 by Yoyodaman234 -- https://freesound.org/s/166511/ -- License: Creative Commons 0
 Stone hit by CamoMano -- https://freesound.org/s/431019/ -- License: Creative Commons 0
+Magic Words - Copyright/Attribution Notice: Spring Spring
+[Ambient Loop] Deep ambient pulses 2 by waveplaySFX -- https://freesound.org/s/529137/ -- License: Creative Commons 0
 
 Music:
 
