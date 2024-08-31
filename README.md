@@ -13,3 +13,6 @@ SZ_Zombies_02.wav by PaulMorek -- https://freesound.org/s/196720/ -- License: Cr
 Dialogue, Pained Yelp, Loud, C.wav by InspectorJ -- https://freesound.org/s/414071/ -- License: Attribution 4.0
 Zombie Pain 4.wav by tonsil5 -- https://freesound.org/s/555421/ -- License: Creative Commons 0
 monster_sound_medium_pain.wav by Leadstarson -- https://freesound.org/s/567998/ -- License: Creative Commons 0
+Footsteps on light gravel path stride 2 by Sadiquecat -- https://freesound.org/s/688595/ -- License: Creative Commons 0
+Cicadas Forest Gravel Footstep Montage Mixed by Geoff-Bremner-Audio -- https://freesound.org/s/748197/ -- License: Creative Commons 0
+jump-grunt.wav by luminousfridge -- https://freesound.org/s/561555/ -- License: Attribution 4.0

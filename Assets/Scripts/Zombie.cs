@@ -23,11 +23,13 @@ public class Zombie : MonoBehaviour
     public Transform animatedMesh;  /// Must be set to the mesh with Animator component.
     private Animator animator;
 
-    private AudioSource[] audioSources;
+    private AudioSource footsteps;
+    private AudioSource[] painSounds;
 
     void Awake()
     {
-        audioSources = gameObject.GetComponentsInChildren<AudioSource>();
+        footsteps = transform.Find("Footsteps").GetComponent<AudioSource>();
+        painSounds = transform.Find("PainSounds").GetComponentsInChildren<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -60,6 +62,15 @@ public class Zombie : MonoBehaviour
         if (wasWalking != isWalking)
         {
             //Debug.Log($"Walking: {isWalking}");
+            if (isWalking)
+            {
+                footsteps.Play();
+                footsteps.time = Random.Range(0.0f, footsteps.clip.length);
+            }
+            else
+            {
+                footsteps.Stop();
+            }
         }
 
         if (isStunned)
@@ -87,7 +98,7 @@ public class Zombie : MonoBehaviour
 
     public void TakeHit(float damage, Vector3 pushDirection)
     {
-        audioSources[Random.Range(0, audioSources.Length)].Play();
+        painSounds[Random.Range(0, painSounds.Length)].Play();
 
         if (!isStunned)
         {

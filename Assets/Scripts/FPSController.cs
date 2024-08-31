@@ -18,11 +18,17 @@ public class FPSController : MonoBehaviour
 
     private float rotationX = 0;
 
+    private AudioSource footsteps;
+    private AudioSource jumpSound;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         playerCamera = Camera.main;
         weaponCamera = GameObject.Find("WeaponCamera").GetComponent<Camera>();
+        footsteps = GameObject.Find("Footsteps").GetComponent<AudioSource>();
+        footsteps.Play();
+        jumpSound = GameObject.Find("JumpSound").GetComponent<AudioSource>();
 
         // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
@@ -44,9 +50,11 @@ public class FPSController : MonoBehaviour
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             moveDirection = transform.TransformDirection(moveDirection);
             moveDirection *= speed;
+            footsteps.volume = (moveDirection.magnitude > 0.01f) ? 1.0f : 0.0f; // Needs to be before gravity and jump.
 
             if (Input.GetButton("Jump"))
             {
+                jumpSound.Play();
                 moveDirection.y = jumpSpeed;
             }
         }
