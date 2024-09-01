@@ -230,7 +230,7 @@ public class Zombie : MonoBehaviour
         hitDelay = hitDelayDefault;
         float distToPlayer = (target.position - transform.position).magnitude;
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
         
         Debug.Log($"Zombie {this.GetHashCode()} old rad {distToPlayer}");
         distToPlayer = (target.position - transform.position).magnitude;

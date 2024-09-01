@@ -22,6 +22,8 @@ public class Shovel : MonoBehaviour
     private AudioSource dirtSound;
     private AudioSource stoneSound;
     private AudioSource waveSound;
+    private AudioSource bfgSound;
+    private AudioSource bfgHumSound;
 
     private Renderer powerShovelRenderer;
 
@@ -32,12 +34,16 @@ public class Shovel : MonoBehaviour
     public float bfgAngleHackMax = 1.0f;
     public float bfgAngleHackPower = 0.0f;
 
+    bool humPlaying = false;
+
     void Start()
     {
         missSound = transform.Find("MissSound").GetComponent<AudioSource>();
         dirtSound = transform.Find("DirtSound").GetComponent<AudioSource>();
         stoneSound = transform.Find("StoneSound").GetComponent<AudioSource>();
         waveSound = transform.Find("WaveSound").GetComponent<AudioSource>();
+        bfgSound = transform.Find("BfgSound").GetComponent<AudioSource>();
+        bfgHumSound = transform.Find("BfgHumSound").GetComponent<AudioSource>();
         bulletsRoot = GameObject.Find("Bullets").transform;
         animator = GetComponent<Animator>();
 
@@ -67,17 +73,32 @@ public class Shovel : MonoBehaviour
         }
         //powerShovelRenderer.material.SetFloat("_Displacement", Mathf.Pow(GameState.Instance.powerShovelStrength, 1.0f) * 0.000f)
         powerShovelRenderer.material.SetVector("_Color", Mathf.Pow(strength, 6.0f) * color);
+
+        if (GameState.Instance.powerShovelStrength >= 0.99f)
+        {
+            if (!humPlaying) 
+            {
+                bfgHumSound.Play();
+                humPlaying = true;
+            }
+        }
+        else
+        {
+            bfgHumSound.Stop();
+            humPlaying = false;
+        }
     }
 
     IEnumerator Wave()
     {
-        waveSound.Play();
+        //waveSound.Play();
         canAttack = false;
         animator.SetTrigger("AttackMiss");
         yield return new WaitForSeconds(preAttackDelay);
 
         if (GameState.Instance.powerShovelStrength >= 0.99f)
         {
+            bfgSound.Play();
             WavePushback wave = Instantiate(wavePrefab, playerCamera.transform.position, Quaternion.identity, bulletsRoot);
 
             var pushDirection = playerCamera.transform.forward;
