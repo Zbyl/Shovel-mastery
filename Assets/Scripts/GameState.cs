@@ -14,6 +14,8 @@ public class GameState : MonoBehaviour
     public bool isPaused = true;
     public static int playerMaxHealth = 5;
     public int playerHealth = playerMaxHealth;
+    public int skeletonsKilled = 0;
+    public float startTime = 0;
     public AudioSource healingSound; // Used by healing flower. Kept here for simplicity.
 
     private void Awake()
@@ -31,6 +33,7 @@ public class GameState : MonoBehaviour
 
     void Start()
     {
+        startTime = Time.time;
         player = GameObject.Find("Player");
         healingSound = GameObject.Find("HealingSound").GetComponent<AudioSource>();
     }

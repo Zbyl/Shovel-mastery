@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Hud : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Hud : MonoBehaviour
     private GameObject menu;
     private GameObject mainMenu;
     private GameObject credits;
+    private TMP_Text skeletonsKilledLabel;
     private List<Transform> heartsGood = new List<Transform>();
     private List<Transform> heartsBad = new List<Transform>();
 
@@ -19,6 +21,8 @@ public class Hud : MonoBehaviour
         menu = transform.Find("Canvas/Menu").gameObject;
         mainMenu = transform.Find("Canvas/Menu/MainMenu").gameObject;
         credits = transform.Find("Canvas/Menu/Credits").gameObject;
+        skeletonsKilledLabel = transform.Find("Canvas/Hud/SkeletonsKilledLabel").GetComponent<TMP_Text>();
+
         foreach (Transform child in transform.Find("Canvas/Hud/HeartsGood"))
         {
             heartsGood.Add(child);
@@ -35,6 +39,7 @@ public class Hud : MonoBehaviour
     void Update()
     {
         UpdateHealth();
+        skeletonsKilledLabel.text = $"{GameState.Instance.skeletonsKilled}";
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ShowMenu(!menu.activeInHierarchy);

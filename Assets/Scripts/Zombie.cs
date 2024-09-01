@@ -302,6 +302,7 @@ public class Zombie : MonoBehaviour
     void Die()
     {
         isDead = true;
+        GameState.Instance.skeletonsKilled += 1;
         // Add death effects, animations, etc.
         var bones = Instantiate(skeletonBonesPrefab, transform.position, transform.rotation, transform.parent);
         Destroy(gameObject);
