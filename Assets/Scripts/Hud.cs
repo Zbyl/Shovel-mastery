@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -15,6 +16,7 @@ public class Hud : MonoBehaviour
     private GameObject winScreen;
     private GameObject resumeButton;
     private TMP_Text skeletonsKilledLabel;
+    private Image powerCircle;
 
     private List<Transform> heartsGood = new List<Transform>();
     private List<Transform> heartsBad = new List<Transform>();
@@ -31,6 +33,7 @@ public class Hud : MonoBehaviour
         credits = transform.Find("Canvas/Menu/Credits").gameObject;
         gameOverScreen = transform.Find("Canvas/Menu/GameOver").gameObject;
         winScreen = transform.Find("Canvas/Menu/WinScreen").gameObject;
+        powerCircle = transform.Find("Canvas/Hud/PowerCircle").GetComponent<Image>();
 
         skeletonsKilledLabel = transform.Find("Canvas/Hud/SkeletonsKilledLabel").GetComponent<TMP_Text>();
 
@@ -51,6 +54,8 @@ public class Hud : MonoBehaviour
     {
         UpdateHealth();
         skeletonsKilledLabel.text = $"{GameState.Instance.skeletonsKilled}/{GameState.Instance.gravesNumber}";
+        powerCircle.fillAmount = GameState.Instance.powerShovelStrength;
+
         if (Input.GetKeyDown(KeyCode.Escape) && (GameState.Instance.gameResult == GameState.GameResult.PLAYING))
         {
             ShowMenu(!menu.activeInHierarchy);

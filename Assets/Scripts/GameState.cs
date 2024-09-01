@@ -16,6 +16,7 @@ public class GameState : MonoBehaviour
     public int skeletonsKilled = 0;
     public float startTime = 0;
     public int gravesNumber = 0;
+    public float powerShovelStrength = 0; // Between 0 and 1.
 
     public enum GameResult
     {
