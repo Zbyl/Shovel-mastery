@@ -58,6 +58,7 @@ public class Grave : MonoBehaviour
         isDeadly = false;
         invincibilityTime = maxInvincibilityTime;
         grave_opened = true;
+        grave_sealed = true;
     }
 
     public void CloseGrave()
