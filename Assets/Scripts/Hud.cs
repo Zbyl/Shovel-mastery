@@ -50,7 +50,7 @@ public class Hud : MonoBehaviour
     void Update()
     {
         UpdateHealth();
-        skeletonsKilledLabel.text = $"{GameState.Instance.skeletonsKilled}/{gravesNumber}";
+        skeletonsKilledLabel.text = $"{GameState.Instance.skeletonsKilled}/{GameState.Instance.gravesNumber}";
         if (Input.GetKeyDown(KeyCode.Escape) && (GameState.Instance.gameResult == GameState.GameResult.PLAYING))
         {
             ShowMenu(!menu.activeInHierarchy);
