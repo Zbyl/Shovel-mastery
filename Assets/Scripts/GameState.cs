@@ -89,7 +89,8 @@ public class GameState : MonoBehaviour
 
     public void TakeHit(int v)
     {
-        playerHealth -= v;
+        Debug.Log($"Player hit{Random.Range(0, 1023442342342340)}");
+        playerHealth -= 1;
     }
 }
 
