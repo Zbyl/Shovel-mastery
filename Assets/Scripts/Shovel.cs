@@ -14,6 +14,8 @@ public class Shovel : MonoBehaviour
     public float attackCooldown = 0.5f; // Time in seconds before the player can attack again
     private bool canAttack = true;
 
+    private Transform bulletsRoot;
+
     private Animator animator;
 
     private AudioSource missSound;
@@ -32,6 +34,7 @@ public class Shovel : MonoBehaviour
         dirtSound = transform.Find("DirtSound").GetComponent<AudioSource>();
         stoneSound = transform.Find("StoneSound").GetComponent<AudioSource>();
         waveSound = transform.Find("WaveSound").GetComponent<AudioSource>();
+        bulletsRoot = GameObject.Find("Bullets").transform;
         animator = GetComponent<Animator>();
 
         powerShovelRenderer = transform.Find("PowerShovel").GetComponent<Renderer>();
@@ -61,7 +64,8 @@ public class Shovel : MonoBehaviour
         canAttack = false;
         animator.SetTrigger("AttackMiss");
         yield return new WaitForSeconds(preAttackDelay);
-        Instantiate(wavePrefab, transform.transform.forward * 4, Quaternion.identity);
+        WavePushback wave = Instantiate(wavePrefab, playerCamera.transform.position, Quaternion.identity, bulletsRoot);
+        wave.direction = playerCamera.transform.forward;
         yield return new WaitForSeconds(preAttackDelay);
         canAttack = true;
     }
