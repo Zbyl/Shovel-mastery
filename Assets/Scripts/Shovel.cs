@@ -21,6 +21,8 @@ public class Shovel : MonoBehaviour
     private AudioSource stoneSound;
     private AudioSource waveSound;
 
+    private Renderer powerShovelRenderer;
+
     public GameObject swingParticlesPrefab; // Particles for swinging shovel, hitting not-stone and not metal.
     public GameObject stoneParticlesPrefab; // Particles for swinging shovel, hitting stone and metal.
 
@@ -31,6 +33,8 @@ public class Shovel : MonoBehaviour
         stoneSound = transform.Find("StoneSound").GetComponent<AudioSource>();
         waveSound = transform.Find("WaveSound").GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
+
+        powerShovelRenderer = transform.Find("PowerShovel").GetComponent<Renderer>();
     }
 
     void Update()
@@ -45,6 +49,10 @@ public class Shovel : MonoBehaviour
         {
             StartCoroutine(Wave());
         }
+
+        //GameState.Instance.powerShovelStrength = Mathf.PingPong(Time.time, 1.0f);
+        //powerShovelRenderer.material.SetFloat("_Displacement", Mathf.Pow(GameState.Instance.powerShovelStrength, 1.0f) * 0.000f);
+        powerShovelRenderer.material.SetVector("_Color", Mathf.Pow(GameState.Instance.powerShovelStrength, 4.0f) * new Vector4(38.93715f, 0.6115782f, 0.0f, 1.0f));
     }
 
     IEnumerator Wave()
