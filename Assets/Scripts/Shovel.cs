@@ -11,7 +11,7 @@ public class Shovel : MonoBehaviour
     public WavePushback wavePrefab;     // Prefab for the wave effect
 
     public float preAttackDelay = 0.3f; // Time in seconds to wait before the attack happens
-    public float attackCooldown = 0.0f; // Time in seconds before the player can attack again
+    public float attackCooldown = 0.5f; // Time in seconds before the player can attack again
     private bool canAttack = true;
 
     private Animator animator;
