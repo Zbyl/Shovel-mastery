@@ -64,9 +64,16 @@ public class Shovel : MonoBehaviour
         canAttack = false;
         animator.SetTrigger("AttackMiss");
         yield return new WaitForSeconds(preAttackDelay);
-        WavePushback wave = Instantiate(wavePrefab, playerCamera.transform.position, Quaternion.identity, bulletsRoot);
-        wave.direction = playerCamera.transform.forward;
-        yield return new WaitForSeconds(preAttackDelay);
+
+        if (GameState.Instance.powerShovelStrength > 0.0f)
+        {
+            WavePushback wave = Instantiate(wavePrefab, playerCamera.transform.position, Quaternion.identity, bulletsRoot);
+            wave.direction = playerCamera.transform.forward;
+            wave.waveHitForceMultiplayer = GameState.Instance.powerShovelStrength;
+            GameState.Instance.powerShovelStrength = 0;
+        }
+
+        yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
 
@@ -87,6 +94,7 @@ public class Shovel : MonoBehaviour
                 Debug.Log($"Hit: {hit.transform.name} {hit.transform.GetHashCode()}");
                 yield return new WaitForSeconds(preAttackDelay);
                 //ShowSwingParticles(false);
+                GameState.Instance.powerShovelStrength = Mathf.Max(GameState.Instance.powerShovelStrength + 0.2f, 1.0f);
                 enemy.TakeHit(damage, hit.point, hit.point - playerCamera.transform.position, false);
             }
             else if (hit.transform.CompareTag("Grave"))

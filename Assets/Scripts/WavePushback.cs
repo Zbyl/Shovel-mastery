@@ -5,7 +5,8 @@ public class WavePushback : MonoBehaviour
 {
     public float waveRadius = 5.0f;        // Radius of the wave effect
     public float pushForce = 10.0f;        // Force applied to enemies
-    public float waveHitForce = 10.0f;     // Force applied to enemies hit by the wave
+    public float waveHitForce = 15.0f;     // Force applied to enemies hit by the wave
+    public float waveHitForceMultiplayer = 0.0f;
     public LayerMask enemyLayer;           // LayerMask to identify enemies
 
     public Vector3 direction;
@@ -25,7 +26,7 @@ public class WavePushback : MonoBehaviour
         {
             Vector3 pushDirection = other.transform.position - transform.position;
             pushDirection.y = 0;
-            other.GetComponent<Zombie>().TakeHit(pushForce, other.transform.position, pushDirection, false);
+            other.GetComponent<Zombie>().TakeHit(waveHitForceMultiplayer * waveHitForce, other.transform.position, pushDirection, false);
         }
     }
 
