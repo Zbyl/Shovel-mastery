@@ -23,6 +23,8 @@ Stone hit by CamoMano -- https://freesound.org/s/431019/ -- License: Creative Co
 Magic Words - Copyright/Attribution Notice: Spring Spring
 [Ambient Loop] Deep ambient pulses 2 by waveplaySFX -- https://freesound.org/s/529137/ -- License: Creative Commons 0
 wood impact 10.wav by kwahmah_02 -- https://freesound.org/s/245306/ -- License: Attribution 3.0
+human male scream 4 by JohnsonBrandEditing -- https://freesound.org/s/243380/ -- License: Creative Commons 0
+RSIPata_church.wav by Kapy21 -- https://freesound.org/s/697624/ -- License: Attribution NonCommercial 4.0
 
 Music:
 
