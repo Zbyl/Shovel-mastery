@@ -15,7 +15,6 @@ public class Hud : MonoBehaviour
     private GameObject resumeButton;
     private TMP_Text skeletonsKilledLabel;
 
-    private int gravesNumber = 0;
     private List<Transform> heartsGood = new List<Transform>();
     private List<Transform> heartsBad = new List<Transform>();
     bool endScreenShown = false;
@@ -30,7 +29,6 @@ public class Hud : MonoBehaviour
         credits = transform.Find("Canvas/Menu/Credits").gameObject;
         gameOverScreen = transform.Find("Canvas/Menu/GameOver").gameObject;
         winScreen = transform.Find("Canvas/Menu/WinScreen").gameObject;
-        gravesNumber = GameObject.FindGameObjectsWithTag("Grave").Length;
 
         skeletonsKilledLabel = transform.Find("Canvas/Hud/SkeletonsKilledLabel").GetComponent<TMP_Text>();
 
@@ -50,7 +48,7 @@ public class Hud : MonoBehaviour
     void Update()
     {
         UpdateHealth();
-        skeletonsKilledLabel.text = $"{GameState.Instance.skeletonsKilled}/{gravesNumber}";
+        skeletonsKilledLabel.text = $"{GameState.Instance.skeletonsKilled}/{GameState.Instance.gravesNumber}";
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ShowMenu(!menu.activeInHierarchy);
