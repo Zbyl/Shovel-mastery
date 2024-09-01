@@ -20,6 +20,7 @@ public class Hud : MonoBehaviour
 
     private List<Transform> heartsGood = new List<Transform>();
     private List<Transform> heartsBad = new List<Transform>();
+    private List<Transform> shovelPower = new List<Transform>();
     bool endScreenShown = false;
 
     // Start is called before the first frame update
@@ -45,6 +46,10 @@ public class Hud : MonoBehaviour
         {
             heartsBad.Add(child);
         }
+        foreach (Transform child in transform.Find("Canvas/Hud/ShovelPower"))
+        {
+            shovelPower.Add(child);
+        }
 
         ShowMenu(false);
     }
@@ -53,6 +58,7 @@ public class Hud : MonoBehaviour
     void Update()
     {
         UpdateHealth();
+        UpdateShovelPower();
         skeletonsKilledLabel.text = $"{GameState.Instance.skeletonsKilled}/{GameState.Instance.gravesNumber}";
         powerCircle.fillAmount = GameState.Instance.powerShovelStrength;
 
@@ -132,6 +138,16 @@ public class Hud : MonoBehaviour
             bool activate = i < playerHealth;
             heartsGood[i].gameObject.SetActive(activate);
             heartsBad[i].gameObject.SetActive(!activate);
+        }
+    }
+
+    public void UpdateShovelPower()
+    {
+        var shovelPowerInt = (int)(GameState.Instance.powerShovelStrength * 5.05f);
+        for (int i = 0; i < shovelPower.Count; ++i)
+        {
+            bool activate = i <= shovelPowerInt;
+            shovelPower[i].gameObject.SetActive(activate);
         }
     }
 }
