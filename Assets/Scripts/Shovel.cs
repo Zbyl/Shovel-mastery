@@ -28,6 +28,10 @@ public class Shovel : MonoBehaviour
     public GameObject swingParticlesPrefab; // Particles for swinging shovel, hitting not-stone and not metal.
     public GameObject stoneParticlesPrefab; // Particles for swinging shovel, hitting stone and metal.
 
+    public float bfgAngleHackMin = 0.0f;
+    public float bfgAngleHackMax = 1.0f;
+    public float bfgAngleHackPower = 0.0f;
+
     void Start()
     {
         missSound = transform.Find("MissSound").GetComponent<AudioSource>();
@@ -75,7 +79,18 @@ public class Shovel : MonoBehaviour
         if (GameState.Instance.powerShovelStrength >= 0.99f)
         {
             WavePushback wave = Instantiate(wavePrefab, playerCamera.transform.position, Quaternion.identity, bulletsRoot);
-            wave.direction = playerCamera.transform.forward;
+
+            var pushDirection = playerCamera.transform.forward;
+
+            var vertMagnitude = Vector3.Dot(pushDirection, Vector3.up);
+            Debug.Log($"vertMagnitude {vertMagnitude}");
+            if ((vertMagnitude < bfgAngleHackMin) || (vertMagnitude > bfgAngleHackMax))
+            {
+                pushDirection -= vertMagnitude * bfgAngleHackPower * Vector3.up;
+                pushDirection = pushDirection.normalized;
+            }
+
+            wave.direction = pushDirection;
             wave.waveHitForceMultiplayer = GameState.Instance.powerShovelStrength;
             GameState.Instance.powerShovelStrength = 0;
         }

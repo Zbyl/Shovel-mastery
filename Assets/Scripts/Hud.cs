@@ -69,6 +69,7 @@ public class Hud : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F5)) GameState.Instance.gameResult = GameState.GameResult.WON;
         if (Input.GetKeyDown(KeyCode.F6)) GameState.Instance.gameResult = GameState.GameResult.LOST;
+        if (Input.GetKeyDown(KeyCode.F7)) GameState.Instance.powerShovelStrength += 0.2f;
 
         if (GameState.Instance.gameResult == GameState.GameResult.WON)
         {

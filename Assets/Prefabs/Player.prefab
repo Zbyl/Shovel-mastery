@@ -1298,6 +1298,9 @@ MonoBehaviour:
   attackCooldown: 0.5
   swingParticlesPrefab: {fileID: 3261598487142912188, guid: a31133dbec8d4d5458d3359d866ca2d2, type: 3}
   stoneParticlesPrefab: {fileID: 3261598487142912188, guid: cb2f6f6e474fce64c8c2df28de8ac45f, type: 3}
+  bfgAngleHackMin: -0.2
+  bfgAngleHackMax: 1
+  bfgAngleHackPower: 0.65
 --- !u!95 &3478544363991269062
 Animator:
   serializedVersion: 5
