@@ -54,8 +54,8 @@ public class Shovel : MonoBehaviour
         }
 
         //GameState.Instance.powerShovelStrength = Mathf.PingPong(Time.time, 1.0f);
-        //powerShovelRenderer.material.SetFloat("_Displacement", Mathf.Pow(GameState.Instance.powerShovelStrength, 1.0f) * 0.000f);
-        powerShovelRenderer.material.SetVector("_Color", Mathf.Pow(GameState.Instance.powerShovelStrength, 4.0f) * new Vector4(38.93715f, 0.6115782f, 0.0f, 1.0f));
+        //powerShovelRenderer.material.SetFloat("_Displacement", Mathf.Pow(GameState.Instance.powerShovelStrength, 1.0f) * 0.000f)
+        powerShovelRenderer.material.SetVector("_Color", Mathf.Pow(GameState.Instance.powerShovelStrength, 4.0f) * new Vector4(42, 137, 145, 1.0f));
     }
 
     IEnumerator Wave()
