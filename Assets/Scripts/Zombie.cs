@@ -50,7 +50,10 @@ public class Zombie : MonoBehaviour
     public GameObject debugTargetPrefab;
     private GameObject debugTarget;
 
-    private float hitDelay = 5f;
+    static float hitDelayDefault = 2.0f;
+    private float hitDelay = hitDelayDefault;
+    private bool isAttacking = false;
+    public float attackRotationSpeedInDegrees = 8.1f;
 
     enum ZombieState
     {
@@ -210,15 +213,24 @@ public class Zombie : MonoBehaviour
         transform.position += currentPushForce;
         currentPushForce = Vector3.MoveTowards(currentPushForce, Vector3.zero, pushForceDecay);
 
+        if (isAttacking)
+        {
+            var dirToPlayer = (target.position - transform.position).normalized;
+            var targetQ = Quaternion.LookRotation(dirToPlayer);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetQ, attackRotationSpeedInDegrees);
+        }
+
         GameState.Instance.ZombieSoundTick(this);
     }
 
     IEnumerator Attack()
     {
-        hitDelay = 5f;
+        isAttacking = true;
+
+        hitDelay = hitDelayDefault;
         float distToPlayer = (target.position - transform.position).magnitude;
         animator.SetTrigger("Attack");
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(0.5f);
         
         Debug.Log($"Zombie {this.GetHashCode()} old rad {distToPlayer}");
         distToPlayer = (target.position - transform.position).magnitude;
@@ -232,6 +244,8 @@ public class Zombie : MonoBehaviour
         {
             Debug.Log($"Zombie {this.GetHashCode()} missed");
         }
+
+        isAttacking = false;
     }
 
 

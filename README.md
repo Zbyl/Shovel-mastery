@@ -25,6 +25,7 @@ Magic Words - Copyright/Attribution Notice: Spring Spring
 wood impact 10.wav by kwahmah_02 -- https://freesound.org/s/245306/ -- License: Attribution 3.0
 human male scream 4 by JohnsonBrandEditing -- https://freesound.org/s/243380/ -- License: Creative Commons 0
 RSIPata_church.wav by Kapy21 -- https://freesound.org/s/697624/ -- License: Attribution NonCommercial 4.0
+Voice_AdultMale_PainGrunts_19.wav by MrFossy -- https://freesound.org/s/547191/ -- License: Creative Commons 0
 
 Music:
 
