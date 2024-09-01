@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.69319326, g: 0.76293737, b: 0.93962264, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e7fa3655421ea0a4da317d43b6f899d3, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1250,6 +1250,9 @@ MonoBehaviour:
   tempCounter: 0
   isPaused: 1
   playerHealth: 3
+  skeletonsKilled: 0
+  startTime: 0
+  gameResult: 0
   healingSound: {fileID: 0}
   maxZombieSoundDistance: 10
   minZombieSoundInterval: 1
