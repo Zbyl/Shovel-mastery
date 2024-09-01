@@ -12,7 +12,7 @@ public class HealingFlower : MonoBehaviour
         if (GameState.Instance.playerHealth >= GameState.playerMaxHealth) return;
         GameState.Instance.playerHealth = GameState.playerMaxHealth;
 
-        var particles = Instantiate(healthPickupParticlesPrefab, transform.position, transform.rotation, transform.parent);
+        var particles = Instantiate(healthPickupParticlesPrefab, transform.position, Quaternion.Euler( -90, 0, 0), transform.parent);
         GameState.Instance.healingSound.Play();
         Destroy(gameObject);
     }

@@ -27,6 +27,7 @@ public class GameState : MonoBehaviour
     public GameResult gameResult = GameResult.PLAYING;
 
     public AudioSource healingSound; // Used by healing flower. Kept here for simplicity.
+    public AudioSource hitSound;
 
     private void Awake()
     {
@@ -46,7 +47,9 @@ public class GameState : MonoBehaviour
         startTime = Time.time;
         player = GameObject.Find("Player");
         healingSound = GameObject.Find("HealingSound").GetComponent<AudioSource>();
+        hitSound = GameObject.Find("HitSound").GetComponent<AudioSource>();
         gravesNumber = GameObject.FindGameObjectsWithTag("Grave").Length;
+        playerHealth = playerMaxHealth;
     }
 
     void Update()
@@ -113,6 +116,7 @@ public class GameState : MonoBehaviour
     {
         Debug.Log($"Player hit{Random.Range(0, 1023442342342340)}");
         playerHealth -= 1;
+        hitSound.Play();
     }
 }
 
