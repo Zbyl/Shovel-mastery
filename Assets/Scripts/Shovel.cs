@@ -53,9 +53,16 @@ public class Shovel : MonoBehaviour
             StartCoroutine(Wave());
         }
 
-        //GameState.Instance.powerShovelStrength = Mathf.PingPong(Time.time, 1.0f);
+        var color = new Vector4(42, 137, 145, 1.0f);
+        var strength = GameState.Instance.powerShovelStrength;
+        if (GameState.Instance.powerShovelStrength > 0.99f)
+        {
+            var wobble = Mathf.PingPong(Time.time, 1.0f);
+            strength = wobble / 2.0f + 0.5f;
+            color = new Vector4(22, 67, 145, 1.0f);
+        }
         //powerShovelRenderer.material.SetFloat("_Displacement", Mathf.Pow(GameState.Instance.powerShovelStrength, 1.0f) * 0.000f)
-        powerShovelRenderer.material.SetVector("_Color", Mathf.Pow(GameState.Instance.powerShovelStrength, 4.0f) * new Vector4(42, 137, 145, 1.0f));
+        powerShovelRenderer.material.SetVector("_Color", Mathf.Pow(strength, 6.0f) * color);
     }
 
     IEnumerator Wave()
@@ -65,7 +72,7 @@ public class Shovel : MonoBehaviour
         animator.SetTrigger("AttackMiss");
         yield return new WaitForSeconds(preAttackDelay);
 
-        if (GameState.Instance.powerShovelStrength > 0.0f)
+        if (GameState.Instance.powerShovelStrength >= 0.99f)
         {
             WavePushback wave = Instantiate(wavePrefab, playerCamera.transform.position, Quaternion.identity, bulletsRoot);
             wave.direction = playerCamera.transform.forward;
@@ -94,7 +101,7 @@ public class Shovel : MonoBehaviour
                 Debug.Log($"Hit: {hit.transform.name} {hit.transform.GetHashCode()}");
                 yield return new WaitForSeconds(preAttackDelay);
                 //ShowSwingParticles(false);
-                GameState.Instance.powerShovelStrength = Mathf.Max(GameState.Instance.powerShovelStrength + 0.2f, 1.0f);
+                GameState.Instance.powerShovelStrength = Mathf.Min(GameState.Instance.powerShovelStrength + 0.2f, 1.0f);
                 enemy.TakeHit(damage, hit.point, hit.point - playerCamera.transform.position, false);
             }
             else if (hit.transform.CompareTag("Grave"))
