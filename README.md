@@ -29,3 +29,5 @@ RSIPata_church.wav by Kapy21 -- https://freesound.org/s/697624/ -- License: Attr
 Music:
 
 Song Name: Depleted Corruption Artist: Josh Penn-Pierson
+
+Ultimate 10+ Shaders by The Developer: https://assetstore.unity.com/packages/vfx/shaders/ultimate-10-shaders-168611
