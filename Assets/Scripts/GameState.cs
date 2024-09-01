@@ -16,6 +16,15 @@ public class GameState : MonoBehaviour
     public int playerHealth = playerMaxHealth;
     public int skeletonsKilled = 0;
     public float startTime = 0;
+
+    public enum GameResult
+    {
+        PLAYING,
+        WON,
+        LOST,
+    }
+    public GameResult gameResult = GameResult.PLAYING;
+
     public AudioSource healingSound; // Used by healing flower. Kept here for simplicity.
 
     private void Awake()

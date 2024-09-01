@@ -10,11 +10,15 @@ public class Hud : MonoBehaviour
     private GameObject menu;
     private GameObject mainMenu;
     private GameObject credits;
+    private GameObject gameOverScreen;
+    private GameObject winScreen;
+    private GameObject resumeButton;
     private TMP_Text skeletonsKilledLabel;
 
     private int gravesNumber = 0;
     private List<Transform> heartsGood = new List<Transform>();
     private List<Transform> heartsBad = new List<Transform>();
+    bool endScreenShown = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,8 +26,12 @@ public class Hud : MonoBehaviour
         hud = transform.Find("Canvas/Hud").gameObject;
         menu = transform.Find("Canvas/Menu").gameObject;
         mainMenu = transform.Find("Canvas/Menu/MainMenu").gameObject;
+        resumeButton = transform.Find("Canvas/Menu/MainMenu/ResumeButton").gameObject;
         credits = transform.Find("Canvas/Menu/Credits").gameObject;
+        gameOverScreen = transform.Find("Canvas/Menu/GameOver").gameObject;
+        winScreen = transform.Find("Canvas/Menu/WinScreen").gameObject;
         gravesNumber = GameObject.FindGameObjectsWithTag("Grave").Length;
+
         skeletonsKilledLabel = transform.Find("Canvas/Hud/SkeletonsKilledLabel").GetComponent<TMP_Text>();
 
         foreach (Transform child in transform.Find("Canvas/Hud/HeartsGood"))
@@ -47,6 +55,30 @@ public class Hud : MonoBehaviour
         {
             ShowMenu(!menu.activeInHierarchy);
         }
+
+        if (Input.GetKeyDown(KeyCode.F5)) GameState.Instance.gameResult = GameState.GameResult.WON;
+        if (Input.GetKeyDown(KeyCode.F6)) GameState.Instance.gameResult = GameState.GameResult.LOST;
+
+        if (GameState.Instance.gameResult == GameState.GameResult.WON)
+        {
+            ShowGameOver(true);
+        }
+        if (GameState.Instance.gameResult == GameState.GameResult.LOST)
+        {
+            ShowGameOver(false);
+        }
+    }
+
+    public void ShowGameOver(bool won)
+    {
+        if (endScreenShown) return;
+        endScreenShown = true;
+
+        ShowMenu(true);
+        mainMenu.SetActive(false);
+        gameOverScreen.SetActive(!won);
+        winScreen.SetActive(won);
+        resumeButton.SetActive(false);
     }
 
     public void ShowMenu(bool show)
@@ -59,6 +91,8 @@ public class Hud : MonoBehaviour
             menu.SetActive(true);
             mainMenu.SetActive(true);
             credits.SetActive(false);
+            gameOverScreen.SetActive(false);
+            winScreen.SetActive(false);
             GameState.Instance.isPaused = true;
         }
         else
