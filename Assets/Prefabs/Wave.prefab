@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5344208725476359465}
   - component: {fileID: 1888327703288060626}
-  m_Layer: 0
+  - component: {fileID: 7003267636866888560}
+  m_Layer: 9
   m_Name: Wave
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1281883413909195161}
+  - {fileID: 3690399397236686682}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1888327703288060626
@@ -51,7 +52,29 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
---- !u!1001 &5700899248707439165
+  direction: {x: 0, y: 0, z: 0}
+--- !u!135 &7003267636866888560
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887119441843982439}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &7917729706598857982
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -108,8 +131,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11cb03fafb9a5e947af08ef4a5c69d49, type: 3}
---- !u!4 &1281883413909195161 stripped
+--- !u!4 &3690399397236686682 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6834075567398732708, guid: 11cb03fafb9a5e947af08ef4a5c69d49, type: 3}
-  m_PrefabInstance: {fileID: 5700899248707439165}
+  m_PrefabInstance: {fileID: 7917729706598857982}
   m_PrefabAsset: {fileID: 0}

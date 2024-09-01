@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections; // Add this line to import the IEnumerator type
 
 public class WavePushback : MonoBehaviour
 {
@@ -7,15 +8,30 @@ public class WavePushback : MonoBehaviour
     public float waveHitForce = 10.0f;     // Force applied to enemies hit by the wave
     public LayerMask enemyLayer;           // LayerMask to identify enemies
 
-
+    public Vector3 direction;
     void Start()
     {
-        Collider[] enemiesHit = Physics.OverlapSphere(transform.position, waveRadius, enemyLayer);
-        foreach (Collider enemy in enemiesHit)
-        {
-            enemy.GetComponent<Zombie>().TakeHit(waveHitForce, enemy.transform.position, enemy.transform.position - transform.position, true);
-        }
+        StartCoroutine(DelayedDestroy());
+    }
 
+    void Update()
+    {
+        transform.position += direction * Time.deltaTime * 10;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            Vector3 pushDirection = other.transform.position - transform.position;
+            pushDirection.y = 0;
+            other.GetComponent<Zombie>().TakeHit(pushForce, other.transform.position, pushDirection, false);
+        }
+    }
+
+    IEnumerator DelayedDestroy()
+    {
+        yield return new WaitForSeconds(3.0f);
         Destroy(gameObject);
     }
 
