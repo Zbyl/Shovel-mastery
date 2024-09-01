@@ -28,10 +28,12 @@ public class ZombieSpawner : MonoBehaviour
         if (delay <= 0 && zombiesCounter < maxZombies)
         {
             delay = 5.0f;
+            graves = new List<Grave>(GameObject.FindObjectsOfType<Grave>());
             List<Grave> unsealed_graves = graves.FindAll(grave => !grave.grave_sealed);
+            Debug.Log("Unsealed graves: " + unsealed_graves.Count);
             if (unsealed_graves.Count > 0)
             {
-                Grave grave = graves[Random.Range(0, unsealed_graves.Count)];
+                Grave grave = unsealed_graves[Random.Range(0, unsealed_graves.Count)];
                 grave.OpenGrave();
                 SpawnZombie(grave);
             }
