@@ -7,6 +7,7 @@ using TMPro;
 public class Hud : MonoBehaviour
 {
     private GameObject hud;
+    private GameObject background;
     private GameObject menu;
     private GameObject mainMenu;
     private GameObject credits;
@@ -24,6 +25,7 @@ public class Hud : MonoBehaviour
     void Start()
     {
         hud = transform.Find("Canvas/Hud").gameObject;
+        background = transform.Find("Canvas/Menu/Background").gameObject;
         menu = transform.Find("Canvas/Menu").gameObject;
         mainMenu = transform.Find("Canvas/Menu/MainMenu").gameObject;
         resumeButton = transform.Find("Canvas/Menu/MainMenu/ResumeButton").gameObject;
@@ -51,7 +53,7 @@ public class Hud : MonoBehaviour
     {
         UpdateHealth();
         skeletonsKilledLabel.text = $"{GameState.Instance.skeletonsKilled}/{gravesNumber}";
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && (GameState.Instance.gameResult == GameState.GameResult.PLAYING))
         {
             ShowMenu(!menu.activeInHierarchy);
         }
@@ -78,6 +80,7 @@ public class Hud : MonoBehaviour
         mainMenu.SetActive(false);
         gameOverScreen.SetActive(!won);
         winScreen.SetActive(won);
+        background.SetActive(false);
         resumeButton.SetActive(false);
     }
 
@@ -89,6 +92,7 @@ public class Hud : MonoBehaviour
             Cursor.visible = true;
             hud.SetActive(false);
             menu.SetActive(true);
+            background.SetActive(true);
             mainMenu.SetActive(true);
             credits.SetActive(false);
             gameOverScreen.SetActive(false);
