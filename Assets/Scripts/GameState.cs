@@ -10,12 +10,12 @@ public class GameState : MonoBehaviour
     public ZombieSoundPlayer zombieSoundPlayerPrefab; // Prefab for zombie sound player.
     Dictionary<Zombie, ZombieSoundPlayer> zombieSoundPlayers = new Dictionary<Zombie, ZombieSoundPlayer>();
 
-    public int tempCounter = 0;
     public bool isPaused = true;
     public static int playerMaxHealth = 5;
     public int playerHealth = playerMaxHealth;
     public int skeletonsKilled = 0;
     public float startTime = 0;
+    public int gravesNumber = 0;
 
     public enum GameResult
     {
@@ -45,11 +45,20 @@ public class GameState : MonoBehaviour
         startTime = Time.time;
         player = GameObject.Find("Player");
         healingSound = GameObject.Find("HealingSound").GetComponent<AudioSource>();
+        gravesNumber = GameObject.FindGameObjectsWithTag("Grave").Length;
     }
 
     void Update()
     {
-        tempCounter += 1;
+        if (skeletonsKilled >= gravesNumber && gameResult == GameResult.PLAYING)
+        {
+            gameResult = GameResult.WON;
+        }
+
+        if (playerHealth <= 0 && gameResult == GameResult.PLAYING)
+        {
+            gameResult = GameResult.LOST;
+        }
         removeOldZombieSoundPlayers();
     }
 
