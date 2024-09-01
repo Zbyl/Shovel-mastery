@@ -1,6 +1,7 @@
 using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class Zombie : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class Zombie : MonoBehaviour
     // If Zombie is within farRadius it walks to a random position on closeRadius, within approachAngle.
     // Otherwise zombie walks in random direction for a random distance within randomRadius.
     private float superCloseRadius = 7.0f;
-    private float attackRadius = 5.0f;
+    private float attackRadius = 4.0f;
     private float closeRadius = 6.0f;
     private float farRadius = 20.0f;
     private float randomRadius = 10.0f;
@@ -202,11 +203,9 @@ public class Zombie : MonoBehaviour
         animator.SetBool("Stunned", isStunned);
 
         float distToPlayer = (target.position - transform.position).magnitude;
-        if (distToPlayer < attackRadius && hitDelay <= 0)
+        if (distToPlayer < attackRadius && hitDelay <= 0 && !isStunned && !isDead && !isWalking && !wasWalking)
         {
-            animator.SetTrigger("Attack");
-            game.TakeHit(1);
-            hitDelay = 5f;
+            StartCoroutine(Attack());
         }
 
         transform.position += currentPushForce;
@@ -214,6 +213,29 @@ public class Zombie : MonoBehaviour
 
         GameState.Instance.ZombieSoundTick(this);
     }
+
+    IEnumerator Attack()
+    {
+        hitDelay = 5f;
+        float distToPlayer = (target.position - transform.position).magnitude;
+        animator.SetTrigger("Attack");
+        yield return new WaitForSeconds(3.0f);
+        
+        Debug.Log($"Zombie {this.GetHashCode()} old rad {distToPlayer}");
+        distToPlayer = (target.position - transform.position).magnitude;
+        Debug.Log($"Zombie {this.GetHashCode()} new rad {distToPlayer}");
+        if (distToPlayer < attackRadius)
+        {
+            Debug.Log($"Zombie {this.GetHashCode()} and hits");
+            game.TakeHit(1);
+        }
+        else
+        {
+            Debug.Log($"Zombie {this.GetHashCode()} missed");
+        }
+    }
+
+
 
     void OnCollisionEnter(Collision other)
     {
