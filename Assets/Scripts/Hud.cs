@@ -11,6 +11,8 @@ public class Hud : MonoBehaviour
     private GameObject mainMenu;
     private GameObject credits;
     private TMP_Text skeletonsKilledLabel;
+
+    private int gravesNumber = 0;
     private List<Transform> heartsGood = new List<Transform>();
     private List<Transform> heartsBad = new List<Transform>();
 
@@ -21,6 +23,7 @@ public class Hud : MonoBehaviour
         menu = transform.Find("Canvas/Menu").gameObject;
         mainMenu = transform.Find("Canvas/Menu/MainMenu").gameObject;
         credits = transform.Find("Canvas/Menu/Credits").gameObject;
+        gravesNumber = GameObject.FindGameObjectsWithTag("Grave").Length;
         skeletonsKilledLabel = transform.Find("Canvas/Hud/SkeletonsKilledLabel").GetComponent<TMP_Text>();
 
         foreach (Transform child in transform.Find("Canvas/Hud/HeartsGood"))
@@ -39,7 +42,7 @@ public class Hud : MonoBehaviour
     void Update()
     {
         UpdateHealth();
-        skeletonsKilledLabel.text = $"{GameState.Instance.skeletonsKilled}";
+        skeletonsKilledLabel.text = $"{GameState.Instance.skeletonsKilled}/{gravesNumber}";
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ShowMenu(!menu.activeInHierarchy);
