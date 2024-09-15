@@ -23,6 +23,8 @@ public class Hud : MonoBehaviour
     private List<Transform> shovelPower = new List<Transform>();
     bool endScreenShown = false;
 
+    public bool isInLevelMenu = true;    /// False if the menu is before starting the level, true if it is inside the level.
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +53,8 @@ public class Hud : MonoBehaviour
             shovelPower.Add(child);
         }
 
-        ShowMenu(false);
+        ShowMenu(!isInLevelMenu);
+        resumeButton.SetActive(isInLevelMenu); 
     }
 
     // Update is called once per frame
@@ -62,7 +65,7 @@ public class Hud : MonoBehaviour
         skeletonsKilledLabel.text = $"{GameState.Instance.skeletonsKilled}/{GameState.Instance.gravesNumber}";
         powerCircle.fillAmount = GameState.Instance.powerShovelStrength;
 
-        if (Input.GetKeyDown(KeyCode.Escape) && (GameState.Instance.gameResult == GameState.GameResult.PLAYING))
+        if (isInLevelMenu && Input.GetKeyDown(KeyCode.Escape) && (GameState.Instance.gameResult == GameState.GameResult.PLAYING))
         {
             ShowMenu(!menu.activeInHierarchy);
         }
@@ -121,14 +124,21 @@ public class Hud : MonoBehaviour
 
     public void StartNewGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         ShowMenu(false);
     }
 
     public void ExitGame()
     {
         Debug.Log("Exit game.");
-        Application.Quit();
+        if (Application.isEditor)
+        {
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            Application.Quit();
+        }
     }
 
     public void UpdateHealth()
