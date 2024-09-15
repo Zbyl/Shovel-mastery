@@ -1,4 +1,7 @@
 # Shovel-mastery
+
+![PromoScreen](./Promo/PromoScreen.png)
+
 Slavic Game Jam 2024 entry by:
 
 - Syellia (2D graphics and concept art)
