@@ -9,6 +9,10 @@ Slavic Game Jam 2024 entry by:
 - grafiszti (lead programmer)
 - Zbyl (additional programmer)
 
+YouTube video:
+
+[![](https://img.youtube.com/vi/MM50icRgMqM/hqdefault.jpg)](https://www.youtube.com/watch?v=MM50icRgMqM)
+
 ## itch.io
 
 Game page: https://grafiszti.itch.io/shovel-mastery
