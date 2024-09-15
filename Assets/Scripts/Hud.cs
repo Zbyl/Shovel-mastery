@@ -15,6 +15,7 @@ public class Hud : MonoBehaviour
     private GameObject gameOverScreen;
     private GameObject winScreen;
     private GameObject resumeButton;
+    private GameObject exitButton;
     private TMP_Text skeletonsKilledLabel;
     private Image powerCircle;
 
@@ -25,6 +26,12 @@ public class Hud : MonoBehaviour
 
     public bool isInLevelMenu = true;    /// False if the menu is before starting the level, true if it is inside the level.
 
+#if UNITY_WEBGL
+    public static bool isWebGLBuild = true;
+#else
+    public static bool isWebGLBuild = false;
+#endif
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +40,7 @@ public class Hud : MonoBehaviour
         menu = transform.Find("Canvas/Menu").gameObject;
         mainMenu = transform.Find("Canvas/Menu/MainMenu").gameObject;
         resumeButton = transform.Find("Canvas/Menu/MainMenu/ResumeButton").gameObject;
+        exitButton = transform.Find("Canvas/Menu/MainMenu/ExitButton").gameObject;
         credits = transform.Find("Canvas/Menu/Credits").gameObject;
         gameOverScreen = transform.Find("Canvas/Menu/GameOver").gameObject;
         winScreen = transform.Find("Canvas/Menu/WinScreen").gameObject;
@@ -54,7 +62,8 @@ public class Hud : MonoBehaviour
         }
 
         ShowMenu(!isInLevelMenu);
-        resumeButton.SetActive(isInLevelMenu); 
+        resumeButton.SetActive(isInLevelMenu);
+        exitButton.SetActive(!isWebGLBuild);
     }
 
     // Update is called once per frame
@@ -135,7 +144,7 @@ public class Hud : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
-        else
+        else if (!isWebGLBuild)
         {
             Application.Quit();
         }
